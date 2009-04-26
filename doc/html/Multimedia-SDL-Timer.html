@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--Rendered using the Haskell Html Library v0.2-->
+<HTML
+><HEAD
+><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"
+><TITLE
+>Multimedia.SDL.Timer</TITLE
+><LINK HREF="haddock.css" REL="stylesheet" TYPE="text/css"
+><SCRIPT SRC="haddock.js" TYPE="text/javascript"
+></SCRIPT
+></HEAD
+><BODY
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="topbar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><IMG SRC="haskell_icon.gif" WIDTH="16" HEIGHT="16" ALT=" "
+></TD
+><TD CLASS="title"
+>hsdl-0.2.0</TD
+><TD CLASS="topbut"
+><A HREF="index.html"
+>Contents</A
+></TD
+><TD CLASS="topbut"
+><A HREF="doc-index.html"
+>Index</A
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="modulebar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><FONT SIZE="6"
+>Multimedia.SDL.Timer</FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Documentation</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>type</SPAN
+> <A NAME="t%3ATimerID"
+></A
+><B
+>TimerID</B
+> = Ptr ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetTicks"
+></A
+><B
+>getTicks</B
+> :: IO Integer</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3Adelay"
+></A
+><B
+>delay</B
+> :: Integer -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AaddTimer"
+></A
+><B
+>addTimer</B
+> :: Integer -&gt; (Integer -&gt; IO Integer) -&gt; IO <A HREF="Multimedia-SDL-Timer.html#t%3ATimerID"
+>TimerID</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AremoveTimer"
+></A
+><B
+>removeTimer</B
+> :: <A HREF="Multimedia-SDL-Timer.html#t%3ATimerID"
+>TimerID</A
+> -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetTimer"
+></A
+><B
+>setTimer</B
+> :: Integer -&gt; (Integer -&gt; IO Integer) -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="botbar"
+>Produced by <A HREF="http://www.haskell.org/haddock/"
+>Haddock</A
+> version 0.7</TD
+></TR
+></TABLE
+></BODY
+></HTML
+>

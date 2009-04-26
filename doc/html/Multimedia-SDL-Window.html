@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--Rendered using the Haskell Html Library v0.2-->
+<HTML
+><HEAD
+><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"
+><TITLE
+>Multimedia.SDL.Window</TITLE
+><LINK HREF="haddock.css" REL="stylesheet" TYPE="text/css"
+><SCRIPT SRC="haddock.js" TYPE="text/javascript"
+></SCRIPT
+></HEAD
+><BODY
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="topbar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><IMG SRC="haskell_icon.gif" WIDTH="16" HEIGHT="16" ALT=" "
+></TD
+><TD CLASS="title"
+>hsdl-0.2.0</TD
+><TD CLASS="topbut"
+><A HREF="index.html"
+>Contents</A
+></TD
+><TD CLASS="topbut"
+><A HREF="doc-index.html"
+>Index</A
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="modulebar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><FONT SIZE="6"
+>Multimedia.SDL.Window</FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Documentation</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AGrabMode"
+></A
+><B
+>GrabMode</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGRAB_QUERY"
+></A
+><B
+>GRAB_QUERY</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGRAB_OFF"
+></A
+><B
+>GRAB_OFF</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGRAB_ON"
+></A
+><B
+>GRAB_ON</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGRAB_FULLSCREEN"
+></A
+><B
+>GRAB_FULLSCREEN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:GrabMode')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:GrabMode" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Window.html#t%3AGrabMode"
+>GrabMode</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Window.html#t%3AGrabMode"
+>GrabMode</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Window.html#t%3AGrabMode"
+>GrabMode</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetCaption"
+></A
+><B
+>setCaption</B
+> :: String -&gt; String -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetCaption"
+></A
+><B
+>getCaption</B
+> :: IO (String, String)</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetIcon"
+></A
+><B
+>setIcon</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; Maybe [Word8] -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AiconifyWindow"
+></A
+><B
+>iconifyWindow</B
+> :: IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AtoggleFullScreen"
+></A
+><B
+>toggleFullScreen</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgrabInput"
+></A
+><B
+>grabInput</B
+> :: <A HREF="Multimedia-SDL-Window.html#t%3AGrabMode"
+>GrabMode</A
+> -&gt; IO <A HREF="Multimedia-SDL-Window.html#t%3AGrabMode"
+>GrabMode</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="botbar"
+>Produced by <A HREF="http://www.haskell.org/haddock/"
+>Haddock</A
+> version 0.7</TD
+></TR
+></TABLE
+></BODY
+></HTML
+>

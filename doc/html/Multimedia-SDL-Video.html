@@ -1,0 +1,1963 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--Rendered using the Haskell Html Library v0.2-->
+<HTML
+><HEAD
+><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"
+><TITLE
+>Multimedia.SDL.Video</TITLE
+><LINK HREF="haddock.css" REL="stylesheet" TYPE="text/css"
+><SCRIPT SRC="haddock.js" TYPE="text/javascript"
+></SCRIPT
+></HEAD
+><BODY
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="topbar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><IMG SRC="haskell_icon.gif" WIDTH="16" HEIGHT="16" ALT=" "
+></TD
+><TD CLASS="title"
+>hsdl-0.2.0</TD
+><TD CLASS="topbut"
+><A HREF="index.html"
+>Contents</A
+></TD
+><TD CLASS="topbut"
+><A HREF="doc-index.html"
+>Index</A
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="modulebar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><FONT SIZE="6"
+>Multimedia.SDL.Video</FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Documentation</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3ASurfaceFlag"
+></A
+><B
+>SurfaceFlag</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ASWSURFACE"
+></A
+><B
+>SWSURFACE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHWSURFACE"
+></A
+><B
+>HWSURFACE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AASYNCBLIT"
+></A
+><B
+>ASYNCBLIT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AANYFORMAT"
+></A
+><B
+>ANYFORMAT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHWPALETTE"
+></A
+><B
+>HWPALETTE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ADOUBLEBUF"
+></A
+><B
+>DOUBLEBUF</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AFULLSCREEN"
+></A
+><B
+>FULLSCREEN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AOPENGL"
+></A
+><B
+>OPENGL</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AOPENGLBLIT"
+></A
+><B
+>OPENGLBLIT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ARESIZABLE"
+></A
+><B
+>RESIZABLE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ANOFRAME"
+></A
+><B
+>NOFRAME</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHWACCEL"
+></A
+><B
+>HWACCEL</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ASRCCOLORKEY"
+></A
+><B
+>SRCCOLORKEY</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ARLEACCELOK"
+></A
+><B
+>RLEACCELOK</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ARLEACCEL"
+></A
+><B
+>RLEACCEL</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ASRCALPHA"
+></A
+><B
+>SRCALPHA</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3APREALLOC"
+></A
+><B
+>PREALLOC</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:SurfaceFlag')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:SurfaceFlag" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="Multimedia-SDL-Util.html#t%3AFlag"
+>Flag</A
+> <A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3APaletteFlag"
+></A
+><B
+>PaletteFlag</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ALOGPAL"
+></A
+><B
+>LOGPAL</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3APHYSPAL"
+></A
+><B
+>PHYSPAL</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:PaletteFlag')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:PaletteFlag" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Video.html#t%3APaletteFlag"
+>PaletteFlag</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="Multimedia-SDL-Util.html#t%3AFlag"
+>Flag</A
+> <A HREF="Multimedia-SDL-Video.html#t%3APaletteFlag"
+>PaletteFlag</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3ASurface"
+></A
+><B
+>Surface</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>type</SPAN
+> <A NAME="t%3APalette"
+></A
+><B
+>Palette</B
+> = [<A HREF="Multimedia-SDL-Util.html#t%3AColor"
+>Color</A
+>]</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsurfaceFlags"
+></A
+><B
+>surfaceFlags</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; [<A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+>]</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsurfaceWidth"
+></A
+><B
+>surfaceWidth</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsurfaceHeight"
+></A
+><B
+>surfaceHeight</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsurfacePitch"
+></A
+><B
+>surfacePitch</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsurfacePixels"
+></A
+><B
+>surfacePixels</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; Ptr ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsurfacePixelFormat"
+></A
+><B
+>surfacePixelFormat</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3APixelFormat"
+></A
+><B
+>PixelFormat</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="5" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3APixelFormat"
+></A
+><B
+>PixelFormat</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ApfPalette"
+></A
+><B
+>pfPalette</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3APalette"
+>Palette</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ApfBitPerPixel"
+></A
+><B
+>pfBitPerPixel</B
+> :: Int8</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ApfBytePerPixel"
+></A
+><B
+>pfBytePerPixel</B
+> :: Int8</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ApfRMask"
+></A
+><B
+>pfRMask</B
+>, <A NAME="v%3ApfGMask"
+></A
+><B
+>pfGMask</B
+>, <A NAME="v%3ApfBMask"
+></A
+><B
+>pfBMask</B
+>, <A NAME="v%3ApfAMask"
+></A
+><B
+>pfAMask</B
+> :: Word32</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ApfRShift"
+></A
+><B
+>pfRShift</B
+>, <A NAME="v%3ApfGShift"
+></A
+><B
+>pfGShift</B
+>, <A NAME="v%3ApfBShift"
+></A
+><B
+>pfBShift</B
+>, <A NAME="v%3ApfAShift"
+></A
+><B
+>pfAShift</B
+> :: Int8</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ApfRLoss"
+></A
+><B
+>pfRLoss</B
+>, <A NAME="v%3ApfGLoss"
+></A
+><B
+>pfGLoss</B
+>, <A NAME="v%3ApfBLoss"
+></A
+><B
+>pfBLoss</B
+>, <A NAME="v%3ApfALoss"
+></A
+><B
+>pfALoss</B
+> :: Int8</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ApfColorKey"
+></A
+><B
+>pfColorKey</B
+> :: Word32</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ApfAlpha"
+></A
+><B
+>pfAlpha</B
+> :: Word8</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:PixelFormat')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:PixelFormat" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Storable <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AVideoInfo"
+></A
+><B
+>VideoInfo</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="5" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AVideoInfo"
+></A
+><B
+>VideoInfo</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviHWAvailable"
+></A
+><B
+>viHWAvailable</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviWMAvailable"
+></A
+><B
+>viWMAvailable</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviBlitHW"
+></A
+><B
+>viBlitHW</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviBlitHWCC"
+></A
+><B
+>viBlitHWCC</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviBlitHWA"
+></A
+><B
+>viBlitHWA</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviBlitSW"
+></A
+><B
+>viBlitSW</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviBlitSWCC"
+></A
+><B
+>viBlitSWCC</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviBlitSWA"
+></A
+><B
+>viBlitSWA</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviBlitFill"
+></A
+><B
+>viBlitFill</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviVideoMem"
+></A
+><B
+>viVideoMem</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AviVideoFormat"
+></A
+><B
+>viVideoFormat</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:VideoInfo')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:VideoInfo" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Video.html#t%3AVideoInfo"
+>VideoInfo</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Video.html#t%3AVideoInfo"
+>VideoInfo</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AModeList"
+></A
+><B
+>ModeList</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AAnyDimension"
+></A
+><B
+>AnyDimension</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ADimensionList"
+></A
+><B
+>DimensionList</B
+> [<A HREF="Multimedia-SDL-Util.html#t%3ARect"
+>Rect</A
+>]</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:ModeList')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:ModeList" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Video.html#t%3AModeList"
+>ModeList</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Video.html#t%3AModeList"
+>ModeList</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetVideoSurface"
+></A
+><B
+>getVideoSurface</B
+> :: IO <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetVideoInfo"
+></A
+><B
+>getVideoInfo</B
+> :: IO <A HREF="Multimedia-SDL-Video.html#t%3AVideoInfo"
+>VideoInfo</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AvideoDriverName"
+></A
+><B
+>videoDriverName</B
+> :: IO (Maybe String)</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AlistModes"
+></A
+><B
+>listModes</B
+> :: Maybe <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+> -&gt; [<A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+>] -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3AModeList"
+>ModeList</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AvideoModeOK"
+></A
+><B
+>videoModeOK</B
+> :: Int -&gt; Int -&gt; Int -&gt; [<A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+>] -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetVideoMode"
+></A
+><B
+>setVideoMode</B
+> :: Int -&gt; Int -&gt; Int -&gt; [<A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+>] -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AupdateRect"
+></A
+><B
+>updateRect</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; <A HREF="Multimedia-SDL-Util.html#t%3ARect"
+>Rect</A
+> -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AupdateRects"
+></A
+><B
+>updateRects</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; [<A HREF="Multimedia-SDL-Util.html#t%3ARect"
+>Rect</A
+>] -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AflipSurface"
+></A
+><B
+>flipSurface</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetColors"
+></A
+><B
+>setColors</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; [<A HREF="Multimedia-SDL-Util.html#t%3AColor"
+>Color</A
+>] -&gt; Int -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetPalette"
+></A
+><B
+>setPalette</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; [<A HREF="Multimedia-SDL-Video.html#t%3APaletteFlag"
+>PaletteFlag</A
+>] -&gt; [<A HREF="Multimedia-SDL-Util.html#t%3AColor"
+>Color</A
+>] -&gt; Int -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetGamma"
+></A
+><B
+>setGamma</B
+> :: Double -&gt; Double -&gt; Double -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetGammaRamp"
+></A
+><B
+>getGammaRamp</B
+> :: IO (Bool, [(Word16, Word16, Word16)])</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetGammaRamp"
+></A
+><B
+>setGammaRamp</B
+> :: [(Word16, Word16, Word16)] -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AmapRGB"
+></A
+><B
+>mapRGB</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+> -&gt; <A HREF="Multimedia-SDL-Util.html#t%3AColor"
+>Color</A
+> -&gt; IO Word32</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AmapRGBA"
+></A
+><B
+>mapRGBA</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+> -&gt; <A HREF="Multimedia-SDL-Util.html#t%3AColor"
+>Color</A
+> -&gt; IO Word32</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetRGB"
+></A
+><B
+>getRGB</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+> -&gt; Word32 -&gt; IO <A HREF="Multimedia-SDL-Util.html#t%3AColor"
+>Color</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetRGBA"
+></A
+><B
+>getRGBA</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+> -&gt; Word32 -&gt; IO <A HREF="Multimedia-SDL-Util.html#t%3AColor"
+>Color</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AcreateRGBSurface"
+></A
+><B
+>createRGBSurface</B
+> :: [<A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+>] -&gt; Int -&gt; Int -&gt; Int -&gt; Word32 -&gt; Word32 -&gt; Word32 -&gt; Word32 -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AcreateRGBSurfaceFrom"
+></A
+><B
+>createRGBSurfaceFrom</B
+> :: Ptr () -&gt; Int -&gt; Int -&gt; Int -&gt; Int -&gt; Word32 -&gt; Word32 -&gt; Word32 -&gt; Word32 -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AfreeSurface"
+></A
+><B
+>freeSurface</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AlockSurface"
+></A
+><B
+>lockSurface</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AunlockSurface"
+></A
+><B
+>unlockSurface</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AloadBMP"
+></A
+><B
+>loadBMP</B
+> :: String -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsaveBMP"
+></A
+><B
+>saveBMP</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; String -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetColorKey"
+></A
+><B
+>setColorKey</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; [<A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+>] -&gt; Word32 -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetAlpha"
+></A
+><B
+>setAlpha</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; [<A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+>] -&gt; Word8 -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetClipRect"
+></A
+><B
+>setClipRect</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; <A HREF="Multimedia-SDL-Util.html#t%3ARect"
+>Rect</A
+> -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetClipRect"
+></A
+><B
+>getClipRect</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; IO <A HREF="Multimedia-SDL-Util.html#t%3ARect"
+>Rect</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AconvertSurface"
+></A
+><B
+>convertSurface</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; <A HREF="Multimedia-SDL-Video.html#t%3APixelFormat"
+>PixelFormat</A
+> -&gt; [<A HREF="Multimedia-SDL-Video.html#t%3ASurfaceFlag"
+>SurfaceFlag</A
+>] -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AblitSurface"
+></A
+><B
+>blitSurface</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; Maybe <A HREF="Multimedia-SDL-Util.html#t%3ARect"
+>Rect</A
+> -&gt; <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; <A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+> -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AfillRect"
+></A
+><B
+>fillRect</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; Maybe <A HREF="Multimedia-SDL-Util.html#t%3ARect"
+>Rect</A
+> -&gt; Word32 -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AdisplayFormat"
+></A
+><B
+>displayFormat</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AdisplayFormatAlpha"
+></A
+><B
+>displayFormatAlpha</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+> -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ASurface"
+>Surface</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3ACursor"
+></A
+><B
+>Cursor</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3ACursorState"
+></A
+><B
+>CursorState</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ACURSOR_QUERY"
+></A
+><B
+>CURSOR_QUERY</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ACURSOR_IGNORE"
+></A
+><B
+>CURSOR_IGNORE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ACURSOR_DISABLE"
+></A
+><B
+>CURSOR_DISABLE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ACURSOR_ENABLE"
+></A
+><B
+>CURSOR_ENABLE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:CursorState')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:CursorState" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Video.html#t%3ACursorState"
+>CursorState</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Video.html#t%3ACursorState"
+>CursorState</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Video.html#t%3ACursorState"
+>CursorState</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AwarpMouse"
+></A
+><B
+>warpMouse</B
+> :: <A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+> -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AcreateCursor"
+></A
+><B
+>createCursor</B
+> :: [Bool] -&gt; [Bool] -&gt; <A HREF="Multimedia-SDL-Util.html#t%3ASize"
+>Size</A
+> -&gt; <A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+> -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ACursor"
+>Cursor</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AfreeCursor"
+></A
+><B
+>freeCursor</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ACursor"
+>Cursor</A
+> -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetCursor"
+></A
+><B
+>setCursor</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ACursor"
+>Cursor</A
+> -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetCursor"
+></A
+><B
+>getCursor</B
+> :: IO <A HREF="Multimedia-SDL-Video.html#t%3ACursor"
+>Cursor</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AshowCursor"
+></A
+><B
+>showCursor</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3ACursorState"
+>CursorState</A
+> -&gt; IO <A HREF="Multimedia-SDL-Video.html#t%3ACursorState"
+>CursorState</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AGLAttr"
+></A
+><B
+>GLAttr</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_RED_SIZE"
+></A
+><B
+>GL_RED_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_GREEN_SIZE"
+></A
+><B
+>GL_GREEN_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_BLUE_SIZE"
+></A
+><B
+>GL_BLUE_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_ALPHA_SIZE"
+></A
+><B
+>GL_ALPHA_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_BUFFER_SIZE"
+></A
+><B
+>GL_BUFFER_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_DOUBLEBUFFER"
+></A
+><B
+>GL_DOUBLEBUFFER</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_DEPTH_SIZE"
+></A
+><B
+>GL_DEPTH_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_STENCIL_SIZE"
+></A
+><B
+>GL_STENCIL_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_ACCUM_RED_SIZE"
+></A
+><B
+>GL_ACCUM_RED_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_ACCUM_GREEN_SIZE"
+></A
+><B
+>GL_ACCUM_GREEN_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_ACCUM_BLUE_SIZE"
+></A
+><B
+>GL_ACCUM_BLUE_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_ACCUM_ALPHA_SIZE"
+></A
+><B
+>GL_ACCUM_ALPHA_SIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_STEREO"
+></A
+><B
+>GL_STEREO</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_MULTISAMPLEBUFFERS"
+></A
+><B
+>GL_MULTISAMPLEBUFFERS</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AGL_MULTISAMPLESAMPLES"
+></A
+><B
+>GL_MULTISAMPLESAMPLES</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:GLAttr')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:GLAttr" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Video.html#t%3AGLAttr"
+>GLAttr</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Video.html#t%3AGLAttr"
+>GLAttr</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Video.html#t%3AGLAttr"
+>GLAttr</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AglGetAttribute"
+></A
+><B
+>glGetAttribute</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3AGLAttr"
+>GLAttr</A
+> -&gt; IO (Bool, Int)</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AglSetAttribute"
+></A
+><B
+>glSetAttribute</B
+> :: <A HREF="Multimedia-SDL-Video.html#t%3AGLAttr"
+>GLAttr</A
+> -&gt; Int -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AglSwapBuffers"
+></A
+><B
+>glSwapBuffers</B
+> :: IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="botbar"
+>Produced by <A HREF="http://www.haskell.org/haddock/"
+>Haddock</A
+> version 0.7</TD
+></TR
+></TABLE
+></BODY
+></HTML
+>

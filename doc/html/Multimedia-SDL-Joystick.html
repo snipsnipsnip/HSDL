@@ -1,0 +1,457 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--Rendered using the Haskell Html Library v0.2-->
+<HTML
+><HEAD
+><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"
+><TITLE
+>Multimedia.SDL.Joystick</TITLE
+><LINK HREF="haddock.css" REL="stylesheet" TYPE="text/css"
+><SCRIPT SRC="haddock.js" TYPE="text/javascript"
+></SCRIPT
+></HEAD
+><BODY
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="topbar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><IMG SRC="haskell_icon.gif" WIDTH="16" HEIGHT="16" ALT=" "
+></TD
+><TD CLASS="title"
+>hsdl-0.2.0</TD
+><TD CLASS="topbut"
+><A HREF="index.html"
+>Contents</A
+></TD
+><TD CLASS="topbut"
+><A HREF="doc-index.html"
+>Index</A
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="modulebar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><FONT SIZE="6"
+>Multimedia.SDL.Joystick</FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Documentation</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>type</SPAN
+> <A NAME="t%3AJoystick"
+></A
+><B
+>Joystick</B
+> = Ptr ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AHatState"
+></A
+><B
+>HatState</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_CENTERD"
+></A
+><B
+>HAT_CENTERD</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_UP"
+></A
+><B
+>HAT_UP</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_RIGHT"
+></A
+><B
+>HAT_RIGHT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_DOWN"
+></A
+><B
+>HAT_DOWN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_LEFT"
+></A
+><B
+>HAT_LEFT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_RIGHTUP"
+></A
+><B
+>HAT_RIGHTUP</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_RIGHTDOWN"
+></A
+><B
+>HAT_RIGHTDOWN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_LEFTUP"
+></A
+><B
+>HAT_LEFTUP</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AHAT_LEFTDOWN"
+></A
+><B
+>HAT_LEFTDOWN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:HatState')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:HatState" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Joystick.html#t%3AHatState"
+>HatState</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Joystick.html#t%3AHatState"
+>HatState</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Joystick.html#t%3AHatState"
+>HatState</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AnumJoysticks"
+></A
+><B
+>numJoysticks</B
+> :: IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickName"
+></A
+><B
+>joystickName</B
+> :: Int -&gt; IO String</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickOpen"
+></A
+><B
+>joystickOpen</B
+> :: Int -&gt; IO <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickOpened"
+></A
+><B
+>joystickOpened</B
+> :: Int -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickIndex"
+></A
+><B
+>joystickIndex</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickNumAxes"
+></A
+><B
+>joystickNumAxes</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickNumBalls"
+></A
+><B
+>joystickNumBalls</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickNumHats"
+></A
+><B
+>joystickNumHats</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickNumButtons"
+></A
+><B
+>joystickNumButtons</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickUpdate"
+></A
+><B
+>joystickUpdate</B
+> :: IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickGetAxis"
+></A
+><B
+>joystickGetAxis</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; Int -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickGetHat"
+></A
+><B
+>joystickGetHat</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; Int -&gt; IO <A HREF="Multimedia-SDL-Joystick.html#t%3AHatState"
+>HatState</A
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickGetButton"
+></A
+><B
+>joystickGetButton</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; Int -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickGetBall"
+></A
+><B
+>joystickGetBall</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; Int -&gt; IO (Maybe <A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+>)</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AjoystickClose"
+></A
+><B
+>joystickClose</B
+> :: <A HREF="Multimedia-SDL-Joystick.html#t%3AJoystick"
+>Joystick</A
+> -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="botbar"
+>Produced by <A HREF="http://www.haskell.org/haddock/"
+>Haddock</A
+> version 0.7</TD
+></TR
+></TABLE
+></BODY
+></HTML
+>

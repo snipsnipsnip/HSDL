@@ -1,0 +1,21 @@
+module Multimedia.SDL(
+  module Multimedia.SDL.Util,
+  module Multimedia.SDL.Init,
+  module Multimedia.SDL.Video,
+  module Multimedia.SDL.Window,
+  module Multimedia.SDL.Audio,
+  module Multimedia.SDL.Event,
+  module Multimedia.SDL.Keysym,
+  module Multimedia.SDL.Timer,
+  module Multimedia.SDL.Joystick,
+) where
+
+import Multimedia.SDL.Util
+import Multimedia.SDL.Init
+import Multimedia.SDL.Video
+import Multimedia.SDL.Window
+import Multimedia.SDL.Audio
+import Multimedia.SDL.Event
+import Multimedia.SDL.Keysym
+import Multimedia.SDL.Timer
+import Multimedia.SDL.Joystick

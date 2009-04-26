@@ -1,0 +1,32 @@
+name:		hsdl
+version:	0.2.0
+copyright:	Copyright (c) 2004-2005 Hideyuki Tanaka
+author:		Hideyuki Tanaka
+homepage:	http://fxp.hp.infoseek.co.jp/haskell/HSDL/
+description:	SDL binding for Haskell
+build-depends:	base
+exposed-modules:
+	Multimedia.SDL,
+	Multimedia.SDL.Audio,
+	Multimedia.SDL.Event,
+	Multimedia.SDL.Init,
+	Multimedia.SDL.Joystick,
+	Multimedia.SDL.Keysym,
+	Multimedia.SDL.Timer,
+	Multimedia.SDL.Util,
+	Multimedia.SDL.Video,
+	Multimedia.SDL.Window
+extensions:
+	ForeignFunctionInterface, CPP
+c-sources:
+	Multimedia/SDL/Timer_stub.c,
+	Multimedia/SDL/Event_stub.c,
+	Multimedia/SDL/Audio_stub.c
+ghc-options:
+	-O
+extra-libraries:
+	SDL
+include-dirs:
+	/usr/local/include/SDL
+ld-options:
+	-L/usr/local/lib

@@ -1,0 +1,1413 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--Rendered using the Haskell Html Library v0.2-->
+<HTML
+><HEAD
+><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"
+><TITLE
+>Multimedia.SDL.Event</TITLE
+><LINK HREF="haddock.css" REL="stylesheet" TYPE="text/css"
+><SCRIPT SRC="haddock.js" TYPE="text/javascript"
+></SCRIPT
+></HEAD
+><BODY
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="topbar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><IMG SRC="haskell_icon.gif" WIDTH="16" HEIGHT="16" ALT=" "
+></TD
+><TD CLASS="title"
+>hsdl-0.2.0</TD
+><TD CLASS="topbut"
+><A HREF="index.html"
+>Contents</A
+></TD
+><TD CLASS="topbut"
+><A HREF="doc-index.html"
+>Index</A
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="modulebar"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD
+><FONT SIZE="6"
+>Multimedia.SDL.Event</FONT
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="section1"
+>Documentation</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AEvent"
+></A
+><B
+>Event</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="5" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AActiveEvent"
+></A
+><B
+>ActiveEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AacGain"
+></A
+><B
+>acGain</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AacState"
+></A
+><B
+>acState</B
+> :: [<A HREF="Multimedia-SDL-Event.html#t%3AAppStates"
+>AppStates</A
+>]</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AKeyboardEvent"
+></A
+><B
+>KeyboardEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AkbPress"
+></A
+><B
+>kbPress</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AkbState"
+></A
+><B
+>kbState</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AkbKeysym"
+></A
+><B
+>kbKeysym</B
+> :: <A HREF="Multimedia-SDL-Event.html#t%3AKeysym"
+>Keysym</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AMouseMotionEvent"
+></A
+><B
+>MouseMotionEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AmmState"
+></A
+><B
+>mmState</B
+> :: [<A HREF="Multimedia-SDL-Event.html#t%3AMouseButton"
+>MouseButton</A
+>]</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AmmPos"
+></A
+><B
+>mmPos</B
+> :: <A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AmmRel"
+></A
+><B
+>mmRel</B
+> :: <A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AMouseButtonEvent"
+></A
+><B
+>MouseButtonEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AmbPress"
+></A
+><B
+>mbPress</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AmbButton"
+></A
+><B
+>mbButton</B
+> :: <A HREF="Multimedia-SDL-Event.html#t%3AMouseButton"
+>MouseButton</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AmbState"
+></A
+><B
+>mbState</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AmbPos"
+></A
+><B
+>mbPos</B
+> :: <A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJoyAxisEvent"
+></A
+><B
+>JoyAxisEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjaWhich"
+></A
+><B
+>jaWhich</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjaAxis"
+></A
+><B
+>jaAxis</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjaValue"
+></A
+><B
+>jaValue</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJoyBallEvent"
+></A
+><B
+>JoyBallEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjbWhich"
+></A
+><B
+>jbWhich</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjbBall"
+></A
+><B
+>jbBall</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjbRel"
+></A
+><B
+>jbRel</B
+> :: <A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJoyHatEvent"
+></A
+><B
+>JoyHatEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjhWhich"
+></A
+><B
+>jhWhich</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjhHat"
+></A
+><B
+>jhHat</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjhValue"
+></A
+><B
+>jhValue</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJoyButtonEvent"
+></A
+><B
+>JoyButtonEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjbType"
+></A
+><B
+>jbType</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjbWhich"
+></A
+><B
+>jbWhich</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjbButton"
+></A
+><B
+>jbButton</B
+> :: Int</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AjbState"
+></A
+><B
+>jbState</B
+> :: Bool</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AResizeEvent"
+></A
+><B
+>ResizeEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ArsSize"
+></A
+><B
+>rsSize</B
+> :: <A HREF="Multimedia-SDL-Util.html#t%3ASize"
+>Size</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AExposeEvent"
+></A
+><B
+>ExposeEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AQuitEvent"
+></A
+><B
+>QuitEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AUnknownEvent"
+></A
+><B
+>UnknownEvent</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AukType"
+></A
+><B
+>ukType</B
+> :: Word8</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:Event')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:Event" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Storable <A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AEventFlag"
+></A
+><B
+>EventFlag</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ANOEVENT"
+></A
+><B
+>NOEVENT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AACTIVEEVENT"
+></A
+><B
+>ACTIVEEVENT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AKEYDOWN"
+></A
+><B
+>KEYDOWN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AKEYUP"
+></A
+><B
+>KEYUP</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AMOUSEMOTION"
+></A
+><B
+>MOUSEMOTION</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AMOUSEBUTTONDOWN"
+></A
+><B
+>MOUSEBUTTONDOWN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AMOUSEBUTTONUP"
+></A
+><B
+>MOUSEBUTTONUP</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJOYAXISMOTION"
+></A
+><B
+>JOYAXISMOTION</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJOYBALLMOTION"
+></A
+><B
+>JOYBALLMOTION</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJOYHATMOTION"
+></A
+><B
+>JOYHATMOTION</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJOYBUTTONDOWN"
+></A
+><B
+>JOYBUTTONDOWN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AJOYBUTTONUP"
+></A
+><B
+>JOYBUTTONUP</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AQUIT"
+></A
+><B
+>QUIT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ASYSWMEVENT"
+></A
+><B
+>SYSWMEVENT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AVIDEORESIZE"
+></A
+><B
+>VIDEORESIZE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AVIDEOEXPOSE"
+></A
+><B
+>VIDEOEXPOSE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AALLEVENTS"
+></A
+><B
+>ALLEVENTS</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:EventFlag')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:EventFlag" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Event.html#t%3AEventFlag"
+>EventFlag</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Event.html#t%3AEventFlag"
+>EventFlag</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="Multimedia-SDL-Util.html#t%3AFlag"
+>Flag</A
+> <A HREF="Multimedia-SDL-Event.html#t%3AEventFlag"
+>EventFlag</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Event.html#t%3AEventFlag"
+>EventFlag</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AAppStates"
+></A
+><B
+>AppStates</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AAPPMOUSEFOCUS"
+></A
+><B
+>APPMOUSEFOCUS</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AAPPINPUTFOCUS"
+></A
+><B
+>APPINPUTFOCUS</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AAPPACTIVE"
+></A
+><B
+>APPACTIVE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:AppStates')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:AppStates" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Event.html#t%3AAppStates"
+>AppStates</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Event.html#t%3AAppStates"
+>AppStates</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="Multimedia-SDL-Util.html#t%3AFlag"
+>Flag</A
+> <A HREF="Multimedia-SDL-Event.html#t%3AAppStates"
+>AppStates</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Event.html#t%3AAppStates"
+>AppStates</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AMouseButton"
+></A
+><B
+>MouseButton</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ABUTTON_LEFT"
+></A
+><B
+>BUTTON_LEFT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ABUTTON_MIDDLE"
+></A
+><B
+>BUTTON_MIDDLE</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ABUTTON_RIGHT"
+></A
+><B
+>BUTTON_RIGHT</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ABUTTON_WHEELUP"
+></A
+><B
+>BUTTON_WHEELUP</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3ABUTTON_WHEELDOWN"
+></A
+><B
+>BUTTON_WHEELDOWN</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:MouseButton')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:MouseButton" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Enum <A HREF="Multimedia-SDL-Event.html#t%3AMouseButton"
+>MouseButton</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Event.html#t%3AMouseButton"
+>MouseButton</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A HREF="Multimedia-SDL-Util.html#t%3AFlag"
+>Flag</A
+> <A HREF="Multimedia-SDL-Event.html#t%3AMouseButton"
+>MouseButton</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Event.html#t%3AMouseButton"
+>MouseButton</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>data</SPAN
+> <A NAME="t%3AKeysym"
+></A
+><B
+>Keysym</B
+> </TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="0" CELLPADDING="0"
+><TR
+><TD CLASS="section4"
+>Constructors</TD
+></TR
+><TR
+><TD CLASS="body"
+><TABLE CLASS="vanilla" CELLSPACING="5" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AKeysym"
+></A
+><B
+>Keysym</B
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="body" COLSPAN="2"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AksScancode"
+></A
+><B
+>ksScancode</B
+> :: Word8</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AksSym"
+></A
+><B
+>ksSym</B
+> :: <A HREF="Multimedia-SDL-Keysym.html#t%3ASDLKey"
+>SDLKey</A
+></TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AksMod"
+></A
+><B
+>ksMod</B
+> :: [<A HREF="Multimedia-SDL-Keysym.html#t%3ASDLMod"
+>SDLMod</A
+>]</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+><TR
+><TD CLASS="arg"
+><A NAME="v%3AksUnicode"
+></A
+><B
+>ksUnicode</B
+> :: Word16</TD
+><TD CLASS="rdoc"
+></TD
+></TR
+></TABLE
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="section4"
+><IMG SRC="minus.gif" CLASS="coll" ONCLICK="toggle(this,'i:Keysym')" ALT="show/hide"
+> Instances</TD
+></TR
+><TR
+><TD CLASS="body"
+><DIV ID="i:Keysym" STYLE="display:block;"
+><TABLE CLASS="vanilla" CELLSPACING="1" CELLPADDING="0"
+><TR
+><TD CLASS="decl"
+>Eq <A HREF="Multimedia-SDL-Event.html#t%3AKeysym"
+>Keysym</A
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+>Show <A HREF="Multimedia-SDL-Event.html#t%3AKeysym"
+>Keysym</A
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><SPAN CLASS="keyword"
+>type</SPAN
+> <A NAME="t%3AEventFilter"
+></A
+><B
+>EventFilter</B
+> = Ptr <A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+> -&gt; IO Int</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3ApumpEvents"
+></A
+><B
+>pumpEvents</B
+> :: IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3ApushEvents"
+></A
+><B
+>pushEvents</B
+> :: [<A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+>] -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3ApeekEvents"
+></A
+><B
+>peekEvents</B
+> :: Int -&gt; [<A HREF="Multimedia-SDL-Event.html#t%3AEventFlag"
+>EventFlag</A
+>] -&gt; Bool -&gt; IO (Bool, [<A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+>])</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3ApollEvent"
+></A
+><B
+>pollEvent</B
+> :: IO (Maybe <A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+>)</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AwaitEvent"
+></A
+><B
+>waitEvent</B
+> :: IO (Maybe <A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+>)</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetEventFilter"
+></A
+><B
+>setEventFilter</B
+> :: (<A HREF="Multimedia-SDL-Event.html#t%3AEvent"
+>Event</A
+> -&gt; Bool) -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetKeyState"
+></A
+><B
+>getKeyState</B
+> :: IO [<A HREF="Multimedia-SDL-Keysym.html#t%3ASDLKey"
+>SDLKey</A
+>]</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetModState"
+></A
+><B
+>getModState</B
+> :: IO [<A HREF="Multimedia-SDL-Keysym.html#t%3ASDLMod"
+>SDLMod</A
+>]</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AsetModState"
+></A
+><B
+>setModState</B
+> :: [<A HREF="Multimedia-SDL-Keysym.html#t%3ASDLMod"
+>SDLMod</A
+>] -&gt; IO ()</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetKeyName"
+></A
+><B
+>getKeyName</B
+> :: <A HREF="Multimedia-SDL-Keysym.html#t%3ASDLKey"
+>SDLKey</A
+> -&gt; IO String</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AenableUNICODE"
+></A
+><B
+>enableUNICODE</B
+> :: Maybe Bool -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AenableKeyRepeat"
+></A
+><B
+>enableKeyRepeat</B
+> :: Int -&gt; Int -&gt; IO Bool</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetMouseState"
+></A
+><B
+>getMouseState</B
+> :: IO (<A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+>, [<A HREF="Multimedia-SDL-Event.html#t%3AMouseButton"
+>MouseButton</A
+>])</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetRelativeMouseState"
+></A
+><B
+>getRelativeMouseState</B
+> :: IO (<A HREF="Multimedia-SDL-Util.html#t%3APoint"
+>Point</A
+>, [<A HREF="Multimedia-SDL-Event.html#t%3AMouseButton"
+>MouseButton</A
+>])</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="decl"
+><A NAME="v%3AgetAppState"
+></A
+><B
+>getAppState</B
+> :: IO [<A HREF="Multimedia-SDL-Event.html#t%3AAppStates"
+>AppStates</A
+>]</TD
+></TR
+><TR
+><TD CLASS="s15"
+></TD
+></TR
+><TR
+><TD CLASS="botbar"
+>Produced by <A HREF="http://www.haskell.org/haddock/"
+>Haddock</A
+> version 0.7</TD
+></TR
+></TABLE
+></BODY
+></HTML
+>
