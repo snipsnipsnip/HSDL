@@ -9,10 +9,12 @@ module Multimedia.HSDL.Util(
   size,sz,
   rect,
   color, colorA,
+  EventState, sdlQuery, sdlEnable, sdlIgnore
 ) where
 
 import Data.Bits
 import Foreign
+import Foreign.C
 
 class (Enum f) => Flag f where
   fromFlag  :: (Bits b) => f -> b
@@ -68,3 +70,12 @@ color r g b    = Color r g b 255
 
 colorA :: Word8 -> Word8 -> Word8 -> Word8 -> Color
 colorA r g b a = Color r g b a
+
+--
+
+#include "SDL.h"
+#undef main
+
+type EventState = CInt
+#enum EventState, id, SDL_QUERY, SDL_IGNORE, SDL_ENABLE
+

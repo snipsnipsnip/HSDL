@@ -23,6 +23,7 @@ module Multimedia.HSDL.Joystick(
 import Foreign
 import Foreign.C
 import Control.Monad
+import Multimedia.HSDL.Event
 import Multimedia.HSDL.Util
 
 type Joystick = Ptr ()
@@ -114,6 +115,18 @@ joystickGetBall j n =
 joystickClose :: Joystick -> IO ()
 joystickClose = inSDLJoystickClose
 
+getJoystickEventState :: IO Bool
+getJoystickEventState = do
+  state <- inSDLJoystickEventState sdlQuery
+  return $ fromIntegral state == sdlEnable
+
+setJoystickEventState :: Bool -> IO ()
+setJoystickEventState enable = do
+  inSDLJoystickEventState state
+  return ()
+  where
+  state = if enable then sdlEnable else sdlIgnore
+
 ----------
 
 #include <SDL.h>
@@ -134,3 +147,4 @@ foreign import ccall "SDL.h SDL_JoystickGetHat"     inSDLJoystickGetHat     :: J
 foreign import ccall "SDL.h SDL_JoystickGetButton"  inSDLJoystickGetButton  :: Joystick -> Int -> IO Word8
 foreign import ccall "SDL.h SDL_JoystickGetBall"    inSDLJoystickGetBall    :: Joystick -> Int -> Ptr Int -> Ptr Int -> IO Int
 foreign import ccall "SDL.h SDL_JoystickClose"      inSDLJoystickClose      :: Joystick -> IO ()
+foreign import ccall "SDL.h SDL_JoystickEventState"    inSDLJoystickEventState    :: EventState -> IO EventState

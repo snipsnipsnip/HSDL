@@ -1,8 +1,6 @@
 name: multimedia-hsdl
 version: 0.2.1
 copyright: Copyright (c) 2004-2005 Hideyuki Tanaka, 2009 snipsnipsnip
-license: BSD3
-license-file: LICENSE
 author: Hideyuki Tanaka, snipsnipsnip
 homepage: http://fxp.hp.infoseek.co.jp/haskell/HSDL/
 description: SDL binding for Haskell

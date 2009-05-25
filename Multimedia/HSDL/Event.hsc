@@ -16,7 +16,8 @@ module Multimedia.HSDL.Event(
   setEventFilter,
 
   -- sdlGetEventFilter,
-  -- sdlEventState,
+  getEventState,
+  setEventState,
 
   getKeyState,
   getModState,
@@ -27,8 +28,6 @@ module Multimedia.HSDL.Event(
   getMouseState,
   getRelativeMouseState,
   getAppState,
-
-  -- sdlJoysticlEventState
 ) where
 
 import Foreign
@@ -274,17 +273,26 @@ pumpEvents = inSDLPumpEvents
 pushEvents :: [Event] -> IO Bool
 pushEvents e =
   withArray e $ \p -> do
-     ret <- inSDLPeepEvents p (length e) 0 0
+     ret <- inSDLPeepEvents p (length e) sdlAddevent 0
      return $ ret /= -1
 
-peekEvents :: Int -> [EventFlag] -> Bool -> IO (Bool,[Event])
+pushEvent :: Event -> IO Bool
+pushEvent e = pushEvents [e]
+
+peekEvents :: Int -> [EventFlag] -> Bool -> IO (Maybe [Event])
 peekEvents num ef remove =
   allocaArray num $ \p -> do
-    ret <- inSDLPeepEvents p num (if remove then 2 else 1) (fromFlags ef)
-    if ret == -1 then return (False,[])
+    ret <- inSDLPeepEvents p num action (fromFlags ef)
+    if ret == -1
+      then return Nothing
       else do
-        ev  <- peekArray ret p
-        return (True,ev)
+        ev <- peekArray ret p
+        return $ Just ev
+  where
+  action = if remove then sdlGetevent else sdlPeekevent
+
+type EventAction = #type SDL_eventaction
+#enum EventAction, id, SDL_ADDEVENT, SDL_PEEKEVENT, SDL_GETEVENT
 
 pollEvent :: IO (Maybe Event)
 pollEvent = intPollEvent inSDLPollEvent
@@ -315,8 +323,17 @@ foreign import ccall "wrapper" mkEventFilter :: EventFilter -> IO (FunPtr EventF
 -- 未実装…IOがついてしまうので保留
 -- sdlGetEventFilter :: IO (Event -> IO Bool)
 
--- 未実装…よくわからん…
--- sdlEventState
+getEventState :: EventFlag -> IO Bool
+getEventState flag = do
+  state <- inSDLEventState (fromFlag flag) sdlQuery
+  return $ fromIntegral state == sdlEnable
+
+setEventState :: EventFlag -> Bool -> IO ()
+setEventState flag enable = do
+  inSDLEventState (fromFlag flag) state
+  return ()
+  where
+  state = if enable then sdlEnable else sdlIgnore
 
 getKeyState :: IO [HSDLKey]
 getKeyState =
@@ -372,16 +389,13 @@ getAppState = do
   ret <- inSDLGetAppState
   return $ toFlags ret
 
--- これも未実装…よくわからん
--- sdlJoysticlEventState
-
 ----------------
 
 #include <SDL.h>
 #undef main
 
 foreign import ccall "SDL.h SDL_PumpEvents" inSDLPumpEvents :: IO ()
-foreign import ccall "SDL.h SDL_PeepEvents" inSDLPeepEvents :: Ptr Event -> Int -> Int -> Word32 -> IO Int
+foreign import ccall "SDL.h SDL_PeepEvents" inSDLPeepEvents :: Ptr Event -> Int -> EventAction -> Word32 -> IO Int
 foreign import ccall "SDL.h SDL_PollEvent" inSDLPollEvent :: Ptr Event -> IO Int
 foreign import ccall "SDL.h SDL_WaitEvent" inSDLWaitEvent :: Ptr Event -> IO Int
 foreign import ccall "SDL.h SDL_PushEvent" inSDLPushEvent :: Ptr Event -> IO Int
@@ -389,7 +403,7 @@ foreign import ccall "SDL.h SDL_PushEvent" inSDLPushEvent :: Ptr Event -> IO Int
 foreign import ccall "SDL.h SDL_SetEventFilter" inSDLSetEventFilter :: FunPtr EventFilter -> IO ()
 foreign import ccall "SDL.h SDL_GetEventFilter" inSDLGetEventFilter :: IO (FunPtr EventFilter)
 
-foreign import ccall "SDL.h SDL_EventState"  inSDLEventState  :: Word8 -> Int -> IO Word8
+foreign import ccall "SDL.h SDL_EventState"  inSDLEventState  :: Word8 -> EventState -> IO Word8
 foreign import ccall "SDL.h SDL_GetKeyState" inSDLGetKeyState :: Ptr Int -> IO (Ptr Word8)
 foreign import ccall "SDL.h SDL_GetModState" inSDLGetModState :: IO Word32
 foreign import ccall "SDL.h SDL_SetModState" inSDLSetModState :: Word32 -> IO ()
@@ -400,4 +414,4 @@ foreign import ccall "SDL.h SDL_EnableKeyRepeat"       inSDLEnableKeyRepeat     
 foreign import ccall "SDL.h SDL_GetMouseState"         inSDLGetMouseState         :: Ptr Int -> Ptr Int -> IO Word8
 foreign import ccall "SDL.h SDL_GetRelativeMouseState" inSDLGetRelativeMouseState :: Ptr Int -> Ptr Int -> IO Word8
 foreign import ccall "SDL.h SDL_GetAppState"           inSDLGetAppState           :: IO Word8
-foreign import ccall "SDL.h SDL_JoystickEventState"    inSDLJoystickEventState    :: Int -> IO Int
+

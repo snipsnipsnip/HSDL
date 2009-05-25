@@ -1,5 +1,4 @@
 module Multimedia.HSDL(
-  module Multimedia.HSDL.Util,
   module Multimedia.HSDL.Init,
   module Multimedia.HSDL.Video,
   module Multimedia.HSDL.Window,
