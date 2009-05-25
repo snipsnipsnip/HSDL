@@ -1,5 +1,5 @@
 {-# OPTIONS -fglasgow-exts #-}
-module Multimedia.SDL.Video(
+module Multimedia.HSDL.Video(
   SurfaceFlag(..), PaletteFlag(..),
   Surface, Palette,
 
@@ -82,7 +82,7 @@ import Foreign
 import Foreign.C
 import Foreign.Marshal
 import Control.Monad
-import Multimedia.SDL.Util
+import Multimedia.HSDL.Util
 
 data Surface = Surface
   { sfFlags       :: [SurfaceFlag]
@@ -310,15 +310,15 @@ type RWops = Ptr ()
 ----------
 
 getVideoSurface :: IO Surface
-getVideoSurface = inSDLGetVideoSurface >>= ptrToSurface
+getVideoSurface = inHSDLGetVideoSurface >>= ptrToSurface
 
 getVideoInfo :: IO VideoInfo
-getVideoInfo = inSDLGetVideoInfo >>= toVideoInfo
+getVideoInfo = inHSDLGetVideoInfo >>= toVideoInfo
 
 videoDriverName :: IO (Maybe String)
 videoDriverName =
   withCStringLen (replicate 256 '\0') $ \(cstr,len) -> do
-    ret <- inSDLVideoDriverName cstr len
+    ret <- inHSDLVideoDriverName cstr len
     if ret==nullPtr then return Nothing
       else do
         str <- peekCString ret
@@ -330,7 +330,7 @@ data ModeList =
 
 listModes :: Maybe PixelFormat -> [SurfaceFlag] -> IO ModeList
 listModes Nothing sf = do
-  ret <- inSDLListModes nullPtr $ fromFlags sf
+  ret <- inHSDLListModes nullPtr $ fromFlags sf
   if ret==nullPtr then return $ DimensionList []
     else if (ret `plusPtr` 1)==nullPtr then return AnyDimension
     else toRects ret >>= (return . DimensionList)
@@ -348,46 +348,46 @@ listModes Nothing sf = do
 
 videoModeOK :: Int -> Int -> Int -> [SurfaceFlag] -> IO Int
 videoModeOK width height depth sf =
-  inSDLVideoModeOK width height depth $ fromFlags sf
+  inHSDLVideoModeOK width height depth $ fromFlags sf
 
 setVideoMode :: Int -> Int -> Int -> [SurfaceFlag] -> IO Surface
 setVideoMode width height depth sf =
-  (inSDLSetVideoMode width height depth $ fromFlags sf) >>= ptrToSurface
+  (inHSDLSetVideoMode width height depth $ fromFlags sf) >>= ptrToSurface
 
 updateRect :: Surface -> Rect -> IO ()
 updateRect sur (Rect x y w h) =
-  inSDLUpdateRect (surfaceToPtr sur) (toEnum x) (toEnum y) (toEnum w) (toEnum h)
+  inHSDLUpdateRect (surfaceToPtr sur) (toEnum x) (toEnum y) (toEnum w) (toEnum h)
 
 updateRects :: Surface -> [Rect] -> IO ()
 updateRects sur rs =
-  withArray rs $ inSDLUpdateRects (surfaceToPtr sur) (length rs)
+  withArray rs $ inHSDLUpdateRects (surfaceToPtr sur) (length rs)
 
 flipSurface :: Surface -> IO Bool
 flipSurface sur = do
-  ret <- inSDLFlip (surfaceToPtr sur)
+  ret <- inHSDLFlip (surfaceToPtr sur)
   return $ ret==0
 
 setColors :: Surface -> [Color] -> Int -> IO Bool
 setColors sur cols fst =
   withArray cols $ \p -> do
-    ret <- inSDLSetColors (surfaceToPtr sur) p fst (length cols)
+    ret <- inHSDLSetColors (surfaceToPtr sur) p fst (length cols)
     return $ ret==1
 
 setPalette :: Surface -> [PaletteFlag] -> [Color] -> Int -> IO Bool
 setPalette sur pf cols fst =
   withArray cols $ \p -> do
-    ret <- inSDLSetPalette (surfaceToPtr sur) (fromFlags pf) p fst (length cols)
+    ret <- inHSDLSetPalette (surfaceToPtr sur) (fromFlags pf) p fst (length cols)
     return $ ret==1
 
 setGamma :: Double -> Double -> Double -> IO Bool
 setGamma r g b = do
-  ret <- inSDLSetGamma (realToFrac r) (realToFrac g) (realToFrac b)
+  ret <- inHSDLSetGamma (realToFrac r) (realToFrac g) (realToFrac b)
   return $ ret /= -1
 
 getGammaRamp :: IO (Bool,[(Word16,Word16,Word16)])
 getGammaRamp =
   allocaArray (256*3) $ \p -> do
-    ret <- inSDLGetGammaRamp p (p `advancePtr` 256) (p `advancePtr` 512)
+    ret <- inHSDLGetGammaRamp p (p `advancePtr` 256) (p `advancePtr` 512)
     if ret /= -1 then do
         ar <- peekArray 256 p
         ag <- peekArray 256 $ p `advancePtr` 256
@@ -401,16 +401,16 @@ setGammaRamp gt =
   withArray rl $ \rp ->
   withArray gl $ \gp ->
   withArray bl $ \bp -> do
-    ret <- inSDLSetGammaRamp rp gp bp
+    ret <- inHSDLSetGammaRamp rp gp bp
     return $ ret /= -1
 
 mapRGB :: PixelFormat -> Color -> IO Word32
 mapRGB pf (Color r g b _) =
-  with pf $ \p -> inSDLMapRGB p r g b
+  with pf $ \p -> inHSDLMapRGB p r g b
 
 mapRGBA :: PixelFormat -> Color -> IO Word32
 mapRGBA pf (Color r g b a) =
-  with pf $ \p -> inSDLMapRGBA p r g b a
+  with pf $ \p -> inHSDLMapRGBA p r g b a
 
 getRGB :: PixelFormat -> Word32 -> IO Color
 getRGB pf col =
@@ -418,7 +418,7 @@ getRGB pf col =
   with 0  $ \pr  ->
   with 0  $ \pg  ->
   with 0  $ \pb  -> do
-    inSDLGetRGB col ppf pr pg pb
+    inHSDLGetRGB col ppf pr pg pb
     liftM3 color (peek pr) (peek pg) (peek pb)
 
 getRGBA :: PixelFormat -> Word32 -> IO Color
@@ -428,70 +428,70 @@ getRGBA pf col =
   with 0  $ \pg  ->
   with 0  $ \pb  ->
   with 0  $ \pa  -> do
-    inSDLGetRGBA col ppf pr pg pb pa
+    inHSDLGetRGBA col ppf pr pg pb pa
     liftM4 colorA (peek pr) (peek pg) (peek pb) (peek pa)
 
 createRGBSurface :: [SurfaceFlag] -> Int -> Int -> Int -> Word32 -> Word32 -> Word32 -> Word32 -> IO Surface
 createRGBSurface sf width height depth rmask gmask bmask amask = do
-  ptr <- inSDLCreateRGBSurface (fromFlags sf) width height depth rmask gmask bmask amask
+  ptr <- inHSDLCreateRGBSurface (fromFlags sf) width height depth rmask gmask bmask amask
   ptrToSurface ptr
 
 createRGBSurfaceFrom :: Ptr () -> Int -> Int -> Int -> Int -> Word32 -> Word32 -> Word32 -> Word32 -> IO Surface
 createRGBSurfaceFrom pixels width height depth pitch rmask gmask bmask amask = do
-  ptr <- inSDLCreateRGBSurfaceFrom pixels width height depth pitch rmask gmask bmask amask
+  ptr <- inHSDLCreateRGBSurfaceFrom pixels width height depth pitch rmask gmask bmask amask
   ptrToSurface ptr
 
 freeSurface :: Surface -> IO ()
 freeSurface sur =
-  inSDLFreeSurface $ surfaceToPtr sur
+  inHSDLFreeSurface $ surfaceToPtr sur
 
 lockSurface :: Surface -> IO Bool
 lockSurface sur = do
-  ret <- inSDLLockSurface $ surfaceToPtr sur
+  ret <- inHSDLLockSurface $ surfaceToPtr sur
   return $ ret==0
 
 unlockSurface :: Surface -> IO ()
 unlockSurface sur =
-  inSDLUnlockSurface $ surfaceToPtr sur
+  inHSDLUnlockSurface $ surfaceToPtr sur
 
 loadBMP :: String -> IO Surface
 loadBMP file =
   withCString file $ \cstr -> do
-    rw <- withCString "rb" $ inSDLRWFromFile cstr
-    inSDLLoadBMPRW rw 1 >>= ptrToSurface
+    rw <- withCString "rb" $ inHSDLRWFromFile cstr
+    inHSDLLoadBMPRW rw 1 >>= ptrToSurface
 
 saveBMP :: Surface -> String -> IO Bool
 saveBMP sur file =
   withCString file $ \cstr -> do
-    rw <- withCString "wb" $ inSDLRWFromFile cstr
-    ret <- inSDLSaveBMPRW (surfaceToPtr sur) rw 1
+    rw <- withCString "wb" $ inHSDLRWFromFile cstr
+    ret <- inHSDLSaveBMPRW (surfaceToPtr sur) rw 1
     return $ ret==0
 
 setColorKey :: Surface -> [SurfaceFlag] -> Word32 -> IO Bool
 setColorKey sur sf key = do
-  ret <- inSDLSetColorKey (surfaceToPtr sur) (fromFlags sf) key
+  ret <- inHSDLSetColorKey (surfaceToPtr sur) (fromFlags sf) key
   return $ ret==0
 
 setAlpha :: Surface -> [SurfaceFlag] -> Word8 -> IO Bool
 setAlpha sur sf alpha = do
-  ret <- inSDLSetAlpha (surfaceToPtr sur) (fromFlags sf) alpha
+  ret <- inHSDLSetAlpha (surfaceToPtr sur) (fromFlags sf) alpha
   return $ ret==0
 
 setClipRect :: Surface -> Rect -> IO ()
 setClipRect sur rc =
-  with rc $ inSDLSetClipRect (surfaceToPtr sur)
+  with rc $ inHSDLSetClipRect (surfaceToPtr sur)
 
 getClipRect :: Surface -> IO Rect
 getClipRect sur =
   let rc = Rect 0 0 0 0 in
   with rc $ \p -> do
-    inSDLGetClipRect (surfaceToPtr sur) p
+    inHSDLGetClipRect (surfaceToPtr sur) p
     peek p
 
 convertSurface :: Surface -> PixelFormat -> [SurfaceFlag] -> IO Surface
 convertSurface sur pf sf =
   with pf $ \p -> do
-    ret <- inSDLConvertSurface (surfaceToPtr sur) p (fromFlags sf)
+    ret <- inHSDLConvertSurface (surfaceToPtr sur) p (fromFlags sf)
     ptrToSurface ret
 
 blitSurface :: Surface -> Maybe Rect -> Surface -> Point -> IO Int
@@ -499,7 +499,7 @@ blitSurface src sr dest pos = do
   psr <- case sr of Nothing -> return nullPtr
                     Just sr -> new sr
   pdr <- new (rect pos (sz 0 0))
-  ret <- inSDLBlitSurface (surfaceToPtr src) psr (surfaceToPtr dest) pdr
+  ret <- inHSDLBlitSurface (surfaceToPtr src) psr (surfaceToPtr dest) pdr
   free psr
   free pdr
   return ret
@@ -510,17 +510,17 @@ fillRect sur (Just rc) col =
 fillRect sur Nothing col = intFill sur nullPtr col
 
 intFill sur prc col = do
-  ret <- inSDLFillRect (surfaceToPtr sur) prc col
+  ret <- inHSDLFillRect (surfaceToPtr sur) prc col
   return $ ret==0
 
 displayFormat :: Surface -> IO Surface
 displayFormat sur = do
-  ret <- inSDLDisplayFormat $ surfaceToPtr sur
+  ret <- inHSDLDisplayFormat $ surfaceToPtr sur
   ptrToSurface ret
 
 displayFormatAlpha :: Surface -> IO Surface
 displayFormatAlpha sur = do
-  ret <- inSDLDisplayFormatAlpha $ surfaceToPtr sur
+  ret <- inHSDLDisplayFormatAlpha $ surfaceToPtr sur
   ptrToSurface ret
 
 newtype Cursor = Cursor (Ptr ())
@@ -528,7 +528,7 @@ ptrToCursor p = Cursor p
 cursorToPtr (Cursor p) = p
 
 warpMouse :: Point -> IO ()
-warpMouse (Point x y) = inSDLWarpMouse (toEnum x) (toEnum y)
+warpMouse (Point x y) = inHSDLWarpMouse (toEnum x) (toEnum y)
 
 createCursor :: [Bool] -> [Bool] -> Size -> Point -> IO Cursor
 createCursor dat mask (Size w h) (Point x y) = do
@@ -536,7 +536,7 @@ createCursor dat mask (Size w h) (Point x y) = do
   let mm = map toByte $ split 8 mask
   withArray dd $ \pd ->
     withArray mm $ \pm -> do
-    ptr <- inSDLCreateCursor pd pm w h x y
+    ptr <- inHSDLCreateCursor pd pm w h x y
     return $ ptrToCursor ptr
   where
     split n = map (take n) . takeWhile (not.null) . iterate (drop n)
@@ -545,14 +545,14 @@ createCursor dat mask (Size w h) (Point x y) = do
       inner d (x:xs) = (if x then bit d else 0) .|. (inner (d-1) xs)
 
 freeCursor :: Cursor -> IO ()
-freeCursor cur = inSDLFreeCursor $ cursorToPtr cur
+freeCursor cur = inHSDLFreeCursor $ cursorToPtr cur
 
 setCursor :: Cursor -> IO ()
-setCursor cur = inSDLSetCursor $ cursorToPtr cur
+setCursor cur = inHSDLSetCursor $ cursorToPtr cur
 
 getCursor :: IO Cursor
 getCursor = do
-  ptr <- inSDLGetCursor
+  ptr <- inHSDLGetCursor
   return $ ptrToCursor ptr
 
 data CursorState =
@@ -574,7 +574,7 @@ instance Enum CursorState where
 
 showCursor :: CursorState -> IO CursorState
 showCursor cs = do
-  ret <- inSDLShowCursor $ fromEnum cs
+  ret <- inHSDLShowCursor $ fromEnum cs
   return $ toEnum ret
 
 -- glLoadLibrary
@@ -583,17 +583,17 @@ showCursor cs = do
 glGetAttribute :: GLAttr -> IO (Bool,Int)
 glGetAttribute a =
   alloca $ \p -> do
-    ret <- inSDL_GL_GetAttribute (fromEnum a) p
+    ret <- inHSDL_GL_GetAttribute (fromEnum a) p
     d   <- peek p
     return (ret==0,d)
 
 glSetAttribute :: GLAttr -> Int -> IO Bool
 glSetAttribute a d = do
-  ret <- inSDL_GL_SetAttribute (fromEnum a) d
+  ret <- inHSDL_GL_SetAttribute (fromEnum a) d
   return $ ret==0
 
 glSwapBuffers :: IO ()
-glSwapBuffers = inSDL_GL_SwapBuffers
+glSwapBuffers = inHSDL_GL_SwapBuffers
 
 -- sdlCreateYUVOverlay
 -- sdlLockYUVOverlay
@@ -603,61 +603,61 @@ glSwapBuffers = inSDL_GL_SwapBuffers
 
 --------
 
-#include <SDL.h>
+#include <HSDL.h>
 #undef main
 
-foreign import ccall "SDL.h SDL_RWFromFile"     inSDLRWFromFile     :: CString -> CString -> IO RWops
+foreign import ccall "HSDL.h HSDL_RWFromFile"     inHSDLRWFromFile     :: CString -> CString -> IO RWops
 
-foreign import ccall "SDL.h SDL_GetVideoSurface"  inSDLGetVideoSurface  :: IO (Ptr ())
-foreign import ccall "SDL.h SDL_GetVideoInfo"     inSDLGetVideoInfo     :: IO (Ptr ())
-foreign import ccall "SDL.h SDL_VideoDriverName"  inSDLVideoDriverName  :: CString -> Int -> IO CString
-foreign import ccall "SDL.h SDL_ListModes"        inSDLListModes        :: Ptr () -> Word32 -> IO (Ptr (Ptr Rect))
-foreign import ccall "SDL.h SDL_VideoModeOK"      inSDLVideoModeOK      :: Int -> Int -> Int -> Word32 -> IO Int
-foreign import ccall "SDL.h SDL_SetVideoMode"     inSDLSetVideoMode     :: Int -> Int -> Int -> Word32 -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_UpdateRect"       inSDLUpdateRect       :: Ptr () -> Int32 -> Int32 -> Int32 -> Int32 -> IO ()
-foreign import ccall "SDL.h SDL_UpdateRects"      inSDLUpdateRects      :: Ptr () -> Int -> Ptr Rect -> IO ()
-foreign import ccall "SDL.h SDL_Flip"             inSDLFlip             :: Ptr () -> IO Int
-foreign import ccall "SDL.h SDL_SetColors"        inSDLSetColors        :: Ptr () -> Ptr Color -> Int -> Int -> IO Int
-foreign import ccall "SDL.h SDL_SetPalette"       inSDLSetPalette       :: Ptr () -> Int -> Ptr Color -> Int -> Int -> IO Int
-foreign import ccall "SDL.h SDL_SetGamma"         inSDLSetGamma         :: CFloat -> CFloat -> CFloat -> IO Int
-foreign import ccall "SDL.h SDL_GetGammaRamp"     inSDLGetGammaRamp     :: Ptr Word16 -> Ptr Word16 -> Ptr Word16 -> IO Int
-foreign import ccall "SDL.h SDL_SetGammaRamp"     inSDLSetGammaRamp     :: Ptr Word16 -> Ptr Word16 -> Ptr Word16 -> IO Int
-foreign import ccall "SDL.h SDL_MapRGB"           inSDLMapRGB           :: Ptr PixelFormat -> Word8 -> Word8 -> Word8 -> IO Word32
-foreign import ccall "SDL.h SDL_MapRGBA"          inSDLMapRGBA          :: Ptr PixelFormat -> Word8 -> Word8 -> Word8 -> Word8 -> IO Word32
-foreign import ccall "SDL.h SDL_GetRGB"           inSDLGetRGB           :: Word32 -> Ptr PixelFormat -> Ptr Word8 -> Ptr Word8 -> Ptr Word8 -> IO ()
-foreign import ccall "SDL.h SDL_GetRGBA"          inSDLGetRGBA          :: Word32 -> Ptr PixelFormat -> Ptr Word8 -> Ptr Word8 -> Ptr Word8 -> Ptr Word8 -> IO ()
-foreign import ccall "SDL.h SDL_CreateRGBSurface" inSDLCreateRGBSurface :: Word32 -> Int -> Int -> Int -> Word32 -> Word32 -> Word32 ->Word32 -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_CreateRGBSurfaceFrom" inSDLCreateRGBSurfaceFrom :: Ptr () -> Int -> Int -> Int -> Int -> Word32 -> Word32 -> Word32 -> Word32 -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_FreeSurface"      inSDLFreeSurface      :: Ptr () -> IO ()
-foreign import ccall "SDL.h SDL_LockSurface"      inSDLLockSurface      :: Ptr () -> IO Int
-foreign import ccall "SDL.h SDL_UnlockSurface"    inSDLUnlockSurface    :: Ptr () -> IO ()
-foreign import ccall "SDL.h SDL_LoadBMP_RW"       inSDLLoadBMPRW        :: RWops -> Int -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_SaveBMP_RW"       inSDLSaveBMPRW        :: Ptr () -> RWops -> Int -> IO Int
-foreign import ccall "SDL.h SDL_SetColorKey"      inSDLSetColorKey      :: Ptr () -> Word32 -> Word32 -> IO Int
-foreign import ccall "SDL.h SDL_SetAlpha"         inSDLSetAlpha         :: Ptr () -> Word32 -> Word8 -> IO Int
-foreign import ccall "SDL.h SDL_SetClipRect"      inSDLSetClipRect      :: Ptr () -> Ptr Rect -> IO ()
-foreign import ccall "SDL.h SDL_GetClipRect"      inSDLGetClipRect      :: Ptr () -> Ptr Rect -> IO ()
-foreign import ccall "SDL.h SDL_ConvertSurface"   inSDLConvertSurface   :: Ptr () -> Ptr PixelFormat -> Word32 -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_UpperBlit"        inSDLBlitSurface      :: Ptr () -> Ptr Rect -> Ptr () -> Ptr Rect -> IO Int
-foreign import ccall "SDL.h SDL_FillRect"         inSDLFillRect         :: Ptr () -> Ptr Rect -> Word32 -> IO Int
-foreign import ccall "SDL.h SDL_DisplayFormat"    inSDLDisplayFormat    :: Ptr () -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_DisplayFormatAlpha" inSDLDisplayFormatAlpha :: Ptr () -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_GetVideoSurface"  inHSDLGetVideoSurface  :: IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_GetVideoInfo"     inHSDLGetVideoInfo     :: IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_VideoDriverName"  inHSDLVideoDriverName  :: CString -> Int -> IO CString
+foreign import ccall "HSDL.h HSDL_ListModes"        inHSDLListModes        :: Ptr () -> Word32 -> IO (Ptr (Ptr Rect))
+foreign import ccall "HSDL.h HSDL_VideoModeOK"      inHSDLVideoModeOK      :: Int -> Int -> Int -> Word32 -> IO Int
+foreign import ccall "HSDL.h HSDL_SetVideoMode"     inHSDLSetVideoMode     :: Int -> Int -> Int -> Word32 -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_UpdateRect"       inHSDLUpdateRect       :: Ptr () -> Int32 -> Int32 -> Int32 -> Int32 -> IO ()
+foreign import ccall "HSDL.h HSDL_UpdateRects"      inHSDLUpdateRects      :: Ptr () -> Int -> Ptr Rect -> IO ()
+foreign import ccall "HSDL.h HSDL_Flip"             inHSDLFlip             :: Ptr () -> IO Int
+foreign import ccall "HSDL.h HSDL_SetColors"        inHSDLSetColors        :: Ptr () -> Ptr Color -> Int -> Int -> IO Int
+foreign import ccall "HSDL.h HSDL_SetPalette"       inHSDLSetPalette       :: Ptr () -> Int -> Ptr Color -> Int -> Int -> IO Int
+foreign import ccall "HSDL.h HSDL_SetGamma"         inHSDLSetGamma         :: CFloat -> CFloat -> CFloat -> IO Int
+foreign import ccall "HSDL.h HSDL_GetGammaRamp"     inHSDLGetGammaRamp     :: Ptr Word16 -> Ptr Word16 -> Ptr Word16 -> IO Int
+foreign import ccall "HSDL.h HSDL_SetGammaRamp"     inHSDLSetGammaRamp     :: Ptr Word16 -> Ptr Word16 -> Ptr Word16 -> IO Int
+foreign import ccall "HSDL.h HSDL_MapRGB"           inHSDLMapRGB           :: Ptr PixelFormat -> Word8 -> Word8 -> Word8 -> IO Word32
+foreign import ccall "HSDL.h HSDL_MapRGBA"          inHSDLMapRGBA          :: Ptr PixelFormat -> Word8 -> Word8 -> Word8 -> Word8 -> IO Word32
+foreign import ccall "HSDL.h HSDL_GetRGB"           inHSDLGetRGB           :: Word32 -> Ptr PixelFormat -> Ptr Word8 -> Ptr Word8 -> Ptr Word8 -> IO ()
+foreign import ccall "HSDL.h HSDL_GetRGBA"          inHSDLGetRGBA          :: Word32 -> Ptr PixelFormat -> Ptr Word8 -> Ptr Word8 -> Ptr Word8 -> Ptr Word8 -> IO ()
+foreign import ccall "HSDL.h HSDL_CreateRGBSurface" inHSDLCreateRGBSurface :: Word32 -> Int -> Int -> Int -> Word32 -> Word32 -> Word32 ->Word32 -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_CreateRGBSurfaceFrom" inHSDLCreateRGBSurfaceFrom :: Ptr () -> Int -> Int -> Int -> Int -> Word32 -> Word32 -> Word32 -> Word32 -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_FreeSurface"      inHSDLFreeSurface      :: Ptr () -> IO ()
+foreign import ccall "HSDL.h HSDL_LockSurface"      inHSDLLockSurface      :: Ptr () -> IO Int
+foreign import ccall "HSDL.h HSDL_UnlockSurface"    inHSDLUnlockSurface    :: Ptr () -> IO ()
+foreign import ccall "HSDL.h HSDL_LoadBMP_RW"       inHSDLLoadBMPRW        :: RWops -> Int -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_SaveBMP_RW"       inHSDLSaveBMPRW        :: Ptr () -> RWops -> Int -> IO Int
+foreign import ccall "HSDL.h HSDL_SetColorKey"      inHSDLSetColorKey      :: Ptr () -> Word32 -> Word32 -> IO Int
+foreign import ccall "HSDL.h HSDL_SetAlpha"         inHSDLSetAlpha         :: Ptr () -> Word32 -> Word8 -> IO Int
+foreign import ccall "HSDL.h HSDL_SetClipRect"      inHSDLSetClipRect      :: Ptr () -> Ptr Rect -> IO ()
+foreign import ccall "HSDL.h HSDL_GetClipRect"      inHSDLGetClipRect      :: Ptr () -> Ptr Rect -> IO ()
+foreign import ccall "HSDL.h HSDL_ConvertSurface"   inHSDLConvertSurface   :: Ptr () -> Ptr PixelFormat -> Word32 -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_UpperBlit"        inHSDLBlitSurface      :: Ptr () -> Ptr Rect -> Ptr () -> Ptr Rect -> IO Int
+foreign import ccall "HSDL.h HSDL_FillRect"         inHSDLFillRect         :: Ptr () -> Ptr Rect -> Word32 -> IO Int
+foreign import ccall "HSDL.h HSDL_DisplayFormat"    inHSDLDisplayFormat    :: Ptr () -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_DisplayFormatAlpha" inHSDLDisplayFormatAlpha :: Ptr () -> IO (Ptr ())
 
-foreign import ccall "SDL.h SDL_WarpMouse"        inSDLWarpMouse        :: Word16 -> Word16 -> IO ()
-foreign import ccall "SDL.h SDL_CreateCursor"     inSDLCreateCursor     :: Ptr Word8 -> Ptr Word8 -> Int -> Int -> Int -> Int -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_FreeCursor"       inSDLFreeCursor       :: Ptr () -> IO ()
-foreign import ccall "SDL.h SDL_SetCursor"        inSDLSetCursor        :: Ptr () -> IO ()
-foreign import ccall "SDL.h SDL_GetCursor"        inSDLGetCursor        :: IO (Ptr ())
-foreign import ccall "SDL.h SDL_ShowCursor"       inSDLShowCursor       :: Int -> IO Int
+foreign import ccall "HSDL.h HSDL_WarpMouse"        inHSDLWarpMouse        :: Word16 -> Word16 -> IO ()
+foreign import ccall "HSDL.h HSDL_CreateCursor"     inHSDLCreateCursor     :: Ptr Word8 -> Ptr Word8 -> Int -> Int -> Int -> Int -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_FreeCursor"       inHSDLFreeCursor       :: Ptr () -> IO ()
+foreign import ccall "HSDL.h HSDL_SetCursor"        inHSDLSetCursor        :: Ptr () -> IO ()
+foreign import ccall "HSDL.h HSDL_GetCursor"        inHSDLGetCursor        :: IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_ShowCursor"       inHSDLShowCursor       :: Int -> IO Int
 
-foreign import ccall "SDL.h SDL_GL_LoadLibrary"    inSDL_GL_LoadLibrary    :: CString -> IO Int
-foreign import ccall "SDL.h SDL_GL_GetProcAddress" inSDL_GL_GetProcAddress :: CString -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_GL_GetAttribute"   inSDL_GL_GetAttribute   :: Int -> Ptr Int -> IO Int
-foreign import ccall "SDL.h SDL_GL_SetAttribute"   inSDL_GL_SetAttribute   :: Int -> Int -> IO Int
-foreign import ccall "SDL.h SDL_GL_SwapBuffers"    inSDL_GL_SwapBuffers    :: IO ()
+foreign import ccall "HSDL.h HSDL_GL_LoadLibrary"    inHSDL_GL_LoadLibrary    :: CString -> IO Int
+foreign import ccall "HSDL.h HSDL_GL_GetProcAddress" inHSDL_GL_GetProcAddress :: CString -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_GL_GetAttribute"   inHSDL_GL_GetAttribute   :: Int -> Ptr Int -> IO Int
+foreign import ccall "HSDL.h HSDL_GL_SetAttribute"   inHSDL_GL_SetAttribute   :: Int -> Int -> IO Int
+foreign import ccall "HSDL.h HSDL_GL_SwapBuffers"    inHSDL_GL_SwapBuffers    :: IO ()
 
-foreign import ccall "SDL.h SDL_CreateYUVOverlay"  inSDL_CreateYUVOverlay  :: Int -> Int -> Word32 -> Ptr () -> IO (Ptr ())
-foreign import ccall "SDL.h SDL_LockYUVOverlay"    inSDL_LockYUVOverlay    :: Ptr () -> IO Int
-foreign import ccall "SDL.h SDL_UnlockYUVOverlay"  inSDL_UnlockYUVOverlay  :: Ptr () -> IO ()
-foreign import ccall "SDL.h SDL_DisplayYUVOverlay" inSDL_DisplayYUVOverlay :: Ptr () -> Ptr () -> IO Int
-foreign import ccall "SDL.h SDL_FreeYUVOverlay"    inSDL_FreeYUVOverlay    :: Ptr () -> IO ()
+foreign import ccall "HSDL.h HSDL_CreateYUVOverlay"  inHSDL_CreateYUVOverlay  :: Int -> Int -> Word32 -> Ptr () -> IO (Ptr ())
+foreign import ccall "HSDL.h HSDL_LockYUVOverlay"    inHSDL_LockYUVOverlay    :: Ptr () -> IO Int
+foreign import ccall "HSDL.h HSDL_UnlockYUVOverlay"  inHSDL_UnlockYUVOverlay  :: Ptr () -> IO ()
+foreign import ccall "HSDL.h HSDL_DisplayYUVOverlay" inHSDL_DisplayYUVOverlay :: Ptr () -> Ptr () -> IO Int
+foreign import ccall "HSDL.h HSDL_FreeYUVOverlay"    inHSDL_FreeYUVOverlay    :: Ptr () -> IO ()

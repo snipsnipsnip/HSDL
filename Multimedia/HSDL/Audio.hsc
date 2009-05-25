@@ -1,6 +1,6 @@
 {-# OPTIONS -fglasgow-exts #-}
 
-module Multimedia.SDL.Audio(
+module Multimedia.HSDL.Audio(
   AudioCallback,
 
   AudioSpec(..),
@@ -30,7 +30,7 @@ module Multimedia.SDL.Audio(
 
 import Foreign
 import Foreign.C
-import Multimedia.SDL.Util
+import Multimedia.HSDL.Util
 
 ----------
 
@@ -144,7 +144,7 @@ openAudio :: Int -> AudioDataFormat -> Int -> Int -> AudioCallback -> IO Bool
 openAudio freq format channel samples cb = do
   cbp <- makeAudioCallback cb
   with (AudioSpec freq format channel 0 samples 0 cbp nullPtr) $ \p -> do
-    ret <- inSDLOpenAudio p nullPtr
+    ret <- inHSDLOpenAudio p nullPtr
     return $ ret==0
 
 makeAudioCallback :: AudioCallback -> IO (FunPtr InternalAudioCallback)
@@ -153,17 +153,17 @@ makeAudioCallback cb = mkIAC iac where
     datum <- cb size
     mapM_ (\dat -> case dat of
       AudioS8  b -> let (len,dat) = adj size b in
-        withArray dat $ \p -> inSDLMixAudio buf (castPtr p) (toEnum len) 128
+        withArray dat $ \p -> inHSDLMixAudio buf (castPtr p) (toEnum len) 128
       AudioU8  b -> let (len,dat) = adj size b in
-        withArray dat $ \p -> inSDLMixAudio buf (castPtr p) (toEnum len) 128
+        withArray dat $ \p -> inHSDLMixAudio buf (castPtr p) (toEnum len) 128
       AudioS16 b -> let (len,dat) = adj (size `div` 2) b in
-        withArray dat $ \p -> inSDLMixAudio buf (castPtr p) (toEnum $ len*2) 128
+        withArray dat $ \p -> inHSDLMixAudio buf (castPtr p) (toEnum $ len*2) 128
       AudioU16 b -> let (len,dat) = adj (size `div` 2) b in
-        withArray dat $ \p -> inSDLMixAudio buf (castPtr p) (toEnum $ len*2) 128
+        withArray dat $ \p -> inHSDLMixAudio buf (castPtr p) (toEnum $ len*2) 128
 
       AudioBuf (AudioBuffer _ _ as ac ab) ->
         let len = max 0 $ min (as-ac-1) size in
-        inSDLMixAudio buf (advancePtr ab ac) (toEnum len) 128
+        inHSDLMixAudio buf (advancePtr ab ac) (toEnum len) 128
       ) datum
 
   adj n ls = (length d,d) where
@@ -172,11 +172,11 @@ makeAudioCallback cb = mkIAC iac where
 foreign import ccall "wrapper" mkIAC :: InternalAudioCallback -> IO (FunPtr InternalAudioCallback)
 
 pauseAudio :: Int -> IO ()
-pauseAudio = inSDLPauseAudio
+pauseAudio = inHSDLPauseAudio
 
 getAudioStatus :: IO AudioStatus
 getAudioStatus = do
-  ret <- inSDLGetAudioStatus
+  ret <- inHSDLGetAudioStatus
   return $ toEnum ret
 
 loadWAV :: String -> IO (Maybe AudioData)
@@ -185,8 +185,8 @@ loadWAV name =
   alloca $ \ausp ->
   alloca $ \bufp ->
   alloca $ \sizp -> do
-    rw <- withCString "rb" $ inSDLRWFromFile str
-    ret <- inSDLLoadWAVRW rw 1 ausp bufp sizp
+    rw <- withCString "rb" $ inHSDLRWFromFile str
+    ret <- inHSDLLoadWAVRW rw 1 ausp bufp sizp
     if ret==nullPtr then return $ Nothing
       else do
         aus <- peek ausp
@@ -195,7 +195,7 @@ loadWAV name =
         return $ Just $ AudioBuf $ AudioBuffer aus True (fromEnum siz) 0 buf
 
 freeWAV :: AudioData -> IO ()
-freeWAV (AudioBuf (AudioBuffer _ True _ _ buf)) = inSDLFreeWAV buf
+freeWAV (AudioBuf (AudioBuffer _ True _ _ buf)) = inHSDLFreeWAV buf
 freeWAV (AudioBuf (AudioBuffer _ False _ _ buf)) = free buf
 freeWAV _ = return ()
 
@@ -205,7 +205,7 @@ convertAudio :: Int -> AudioDataFormat -> Int -> AudioData -> IO (Maybe AudioDat
 convertAudio freq fmt ch aud = case aud of
   AudioBuf ab@(AudioBuffer aus _ size pos buf) ->
     allocaBytes 88 $ \p -> do
-    bret <- inSDLBuildAudioCVT p
+    bret <- inHSDLBuildAudioCVT p
         (toEnum . fromEnum $ asFormat aus) (toEnum $ asChannels aus) (toEnum $ asFreq aus) 
         (toEnum . fromEnum $ fmt         ) (toEnum ch              ) (toEnum freq        )
     if (bret == -1)
@@ -217,16 +217,16 @@ convertAudio freq fmt ch aud = case aud of
       pokeByteOff p 16 cbuf
       pokeByteOff p 20 size
       copyArray cbuf buf size
-      inSDLConvertAudio p
+      inHSDLConvertAudio p
       return $ Just $ AudioBuf $ AudioBuffer (aus { asFormat = fmt, asChannels = ch, asFreq = freq }) False destSize 0 cbuf
 
   _ -> return $ Just aud
 
 lockAudio :: IO ()
-lockAudio = inSDLLockAudio
+lockAudio = inHSDLLockAudio
 
 unlockAudio :: IO ()
-unlockAudio = inSDLUnlockAudio
+unlockAudio = inHSDLUnlockAudio
 
 withLockAudio :: IO a -> IO a
 withLockAudio f = do
@@ -236,25 +236,25 @@ withLockAudio f = do
   return a
 
 closeAudio :: IO ()
-closeAudio = inSDLCloseAudio
+closeAudio = inHSDLCloseAudio
 
 ----------
 
-#include <SDL.h>
+#include <HSDL.h>
 #undef main
 
-foreign import ccall "SDL.h SDL_RWFromFile"     inSDLRWFromFile     :: CString -> CString -> IO RWops
+foreign import ccall "HSDL.h HSDL_RWFromFile"     inHSDLRWFromFile     :: CString -> CString -> IO RWops
 
-foreign import ccall "SDL.h SDL_OpenAudio"      inSDLOpenAudio      :: Ptr AudioSpec -> Ptr AudioSpec -> IO Int
-foreign import ccall "SDL.h SDL_PauseAudio"     inSDLPauseAudio     :: Int -> IO ()
-foreign import ccall "SDL.h SDL_GetAudioStatus" inSDLGetAudioStatus :: IO Int
-foreign import ccall "SDL.h SDL_LoadWAV_RW"     inSDLLoadWAVRW      :: RWops -> Int -> Ptr AudioSpec -> Ptr (Ptr Word8) -> Ptr Word32 -> IO (Ptr AudioSpec)
-foreign import ccall "SDL.h SDL_FreeWAV"        inSDLFreeWAV        :: Ptr Word8 -> IO ()
+foreign import ccall "HSDL.h HSDL_OpenAudio"      inHSDLOpenAudio      :: Ptr AudioSpec -> Ptr AudioSpec -> IO Int
+foreign import ccall "HSDL.h HSDL_PauseAudio"     inHSDLPauseAudio     :: Int -> IO ()
+foreign import ccall "HSDL.h HSDL_GetAudioStatus" inHSDLGetAudioStatus :: IO Int
+foreign import ccall "HSDL.h HSDL_LoadWAV_RW"     inHSDLLoadWAVRW      :: RWops -> Int -> Ptr AudioSpec -> Ptr (Ptr Word8) -> Ptr Word32 -> IO (Ptr AudioSpec)
+foreign import ccall "HSDL.h HSDL_FreeWAV"        inHSDLFreeWAV        :: Ptr Word8 -> IO ()
 
-foreign import ccall "SDL.h SDL_BuildAudioCVT"  inSDLBuildAudioCVT  :: Ptr () -> Word16 -> Word8 -> Int -> Word16 -> Word8 -> Int -> IO Int
-foreign import ccall "SDL.h SDL_ConvertAudio"   inSDLConvertAudio   :: Ptr () -> IO Int
+foreign import ccall "HSDL.h HSDL_BuildAudioCVT"  inHSDLBuildAudioCVT  :: Ptr () -> Word16 -> Word8 -> Int -> Word16 -> Word8 -> Int -> IO Int
+foreign import ccall "HSDL.h HSDL_ConvertAudio"   inHSDLConvertAudio   :: Ptr () -> IO Int
 
-foreign import ccall "SDL.h SDL_MixAudio"       inSDLMixAudio       :: Ptr Word8 -> Ptr Word8 -> Word32 -> Int -> IO ()
-foreign import ccall "SDL.h SDL_LockAudio"      inSDLLockAudio      :: IO ()
-foreign import ccall "SDL.h SDL_UnlockAudio"    inSDLUnlockAudio    :: IO ()
-foreign import ccall "SDL.h SDL_CloseAudio"     inSDLCloseAudio     :: IO ()
+foreign import ccall "HSDL.h HSDL_MixAudio"       inHSDLMixAudio       :: Ptr Word8 -> Ptr Word8 -> Word32 -> Int -> IO ()
+foreign import ccall "HSDL.h HSDL_LockAudio"      inHSDLLockAudio      :: IO ()
+foreign import ccall "HSDL.h HSDL_UnlockAudio"    inHSDLUnlockAudio    :: IO ()
+foreign import ccall "HSDL.h HSDL_CloseAudio"     inHSDLCloseAudio     :: IO ()

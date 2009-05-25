@@ -1,4 +1,4 @@
-module Multimedia.SDL.Util(
+module Multimedia.HSDL.Util(
   Flag(..),
   Point(..),
   Size(..),

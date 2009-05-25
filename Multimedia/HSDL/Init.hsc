@@ -1,5 +1,5 @@
 {-# OPTIONS -fglasgow-exts #-}
-module Multimedia.SDL.Init(
+module Multimedia.HSDL.Init(
   Subsystem(..),
 
   sdlInit, initSubSystem,
@@ -13,7 +13,7 @@ module Multimedia.SDL.Init(
 import Foreign
 import Foreign.C
 import Control.Monad
-import Multimedia.SDL.Util
+import Multimedia.HSDL.Util
 
 data Subsystem =
     TIMER | AUDIO | VIDEO | CDROM | JOYSTICK
@@ -34,36 +34,36 @@ instance Flag Subsystem where
 
 sdlInit :: [Subsystem] -> IO Bool
 sdlInit ss = do
-  ret <- inSDLInit $ fromFlags ss
+  ret <- inHSDLInit $ fromFlags ss
   return $ ret>=0
 
 initSubSystem :: [Subsystem] -> IO Bool
 initSubSystem ss = do
-  ret <- inSDLInitSubSystem $ fromFlags ss
+  ret <- inHSDLInitSubSystem $ fromFlags ss
   return $ ret>=0
 
 sdlQuit :: IO ()
-sdlQuit = inSDLQuit
+sdlQuit = inHSDLQuit
 
 quitSubSystem :: [Subsystem] -> IO ()
-quitSubSystem = inSDLQuitSubSystem . fromFlags
+quitSubSystem = inHSDLQuitSubSystem . fromFlags
 
 wasInit :: [Subsystem] -> IO [Subsystem]
-wasInit ss = liftM toFlags $ inSDLWasInit $ fromFlags ss
+wasInit ss = liftM toFlags $ inHSDLWasInit $ fromFlags ss
 
 getError :: IO String
 getError = do
-  p <- inSDLGetError
+  p <- inHSDLGetError
   peekCString p
 
 ----------
 
-#include <SDL.h>
+#include <HSDL.h>
 #undef main
 
-foreign import ccall "SDL.h SDL_Init"          inSDLInit :: Word32 -> IO Int
-foreign import ccall "SDL.h SDL_InitSubSystem" inSDLInitSubSystem :: Word32 -> IO Int
-foreign import ccall "SDL.h SDL_Quit"          inSDLQuit :: IO ()
-foreign import ccall "SDL.h SDL_QuitSubSystem" inSDLQuitSubSystem :: Word32 -> IO ()
-foreign import ccall "SDL.h SDL_WasInit"       inSDLWasInit :: Word32 -> IO Word32
-foreign import ccall "SDL.h SDL_GetError"      inSDLGetError :: IO CString
+foreign import ccall "HSDL.h HSDL_Init"          inHSDLInit :: Word32 -> IO Int
+foreign import ccall "HSDL.h HSDL_InitSubSystem" inHSDLInitSubSystem :: Word32 -> IO Int
+foreign import ccall "HSDL.h HSDL_Quit"          inHSDLQuit :: IO ()
+foreign import ccall "HSDL.h HSDL_QuitSubSystem" inHSDLQuitSubSystem :: Word32 -> IO ()
+foreign import ccall "HSDL.h HSDL_WasInit"       inHSDLWasInit :: Word32 -> IO Word32
+foreign import ccall "HSDL.h HSDL_GetError"      inHSDLGetError :: IO CString

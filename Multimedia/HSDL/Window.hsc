@@ -1,5 +1,5 @@
 {-# OPTIONS -fglasgow-exts #-}
-module Multimedia.SDL.Window(
+module Multimedia.HSDL.Window(
   GrabMode(..),
 
   setCaption,
@@ -15,8 +15,8 @@ import Foreign
 import Foreign.C
 import Control.Monad
 
-import Multimedia.SDL.Util
-import Multimedia.SDL.Video
+import Multimedia.HSDL.Util
+import Multimedia.HSDL.Video
 
 data GrabMode =
     GRAB_QUERY | GRAB_OFF | GRAB_ON
@@ -40,13 +40,13 @@ setCaption :: String -> String -> IO ()
 setCaption title icon = do
   ctitle <- newCString title
   cicon  <- newCString icon
-  inSDLWMSetCaption ctitle cicon
+  inHSDLWMSetCaption ctitle cicon
 
 getCaption :: IO (String,String)
 getCaption =
   alloca $ \ptitle ->
   alloca $ \picon  -> do
-    inSDLWMGetCaption ptitle picon
+    inHSDLWMGetCaption ptitle picon
     ctitle <- peek ptitle
     cicon  <- peek picon
     title  <- peekCString ctitle
@@ -58,29 +58,29 @@ setIcon icon mask = do
   pmask <- case mask of
     Just  m -> newArray m
     Nothing -> return $ nullPtr
-  inSDLWMSetIcon (surfaceToPtr icon) pmask
+  inHSDLWMSetIcon (surfaceToPtr icon) pmask
   free pmask
 
 iconifyWindow :: IO Bool
 iconifyWindow =
-  liftM toBool inSDLWMIconifyWindow
+  liftM toBool inHSDLWMIconifyWindow
 
 toggleFullScreen :: Surface -> IO Bool
 toggleFullScreen sur =
-  liftM toBool $ inSDLWMToggleFullScreen (surfaceToPtr sur)
+  liftM toBool $ inHSDLWMToggleFullScreen (surfaceToPtr sur)
 
 grabInput :: GrabMode -> IO GrabMode
 grabInput mode = do
-  liftM toEnum $ inSDLWMGrabInput $ fromEnum mode
+  liftM toEnum $ inHSDLWMGrabInput $ fromEnum mode
 
 ----------
 
-#include <SDL.h>
+#include <HSDL.h>
 #undef main
 
-foreign import ccall "SDL.h SDL_WM_SetCaption" inSDLWMSetCaption :: CString -> CString -> IO ()
-foreign import ccall "SDL.h SDL_WM_GetCaption" inSDLWMGetCaption :: Ptr CString -> Ptr CString -> IO ()
-foreign import ccall "SDL.h SDL_WM_SetIcon"    inSDLWMSetIcon    :: Ptr () -> Ptr Word8 -> IO ()
-foreign import ccall "SDL.h SDL_WM_IconifyWindow"    inSDLWMIconifyWindow    :: IO Int
-foreign import ccall "SDL.h SDL_WM_ToggleFullScreen" inSDLWMToggleFullScreen :: Ptr () -> IO Int
-foreign import ccall "SDL.h SDL_WM_GrabInput"  inSDLWMGrabInput  :: Int -> IO Int
+foreign import ccall "HSDL.h HSDL_WM_SetCaption" inHSDLWMSetCaption :: CString -> CString -> IO ()
+foreign import ccall "HSDL.h HSDL_WM_GetCaption" inHSDLWMGetCaption :: Ptr CString -> Ptr CString -> IO ()
+foreign import ccall "HSDL.h HSDL_WM_SetIcon"    inHSDLWMSetIcon    :: Ptr () -> Ptr Word8 -> IO ()
+foreign import ccall "HSDL.h HSDL_WM_IconifyWindow"    inHSDLWMIconifyWindow    :: IO Int
+foreign import ccall "HSDL.h HSDL_WM_ToggleFullScreen" inHSDLWMToggleFullScreen :: Ptr () -> IO Int
+foreign import ccall "HSDL.h HSDL_WM_GrabInput"  inHSDLWMGrabInput  :: Int -> IO Int
