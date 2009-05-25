@@ -34,36 +34,36 @@ instance Flag Subsystem where
 
 sdlInit :: [Subsystem] -> IO Bool
 sdlInit ss = do
-  ret <- inHSDLInit $ fromFlags ss
+  ret <- inSDLInit $ fromFlags ss
   return $ ret>=0
 
 initSubSystem :: [Subsystem] -> IO Bool
 initSubSystem ss = do
-  ret <- inHSDLInitSubSystem $ fromFlags ss
+  ret <- inSDLInitSubSystem $ fromFlags ss
   return $ ret>=0
 
 sdlQuit :: IO ()
-sdlQuit = inHSDLQuit
+sdlQuit = inSDLQuit
 
 quitSubSystem :: [Subsystem] -> IO ()
-quitSubSystem = inHSDLQuitSubSystem . fromFlags
+quitSubSystem = inSDLQuitSubSystem . fromFlags
 
 wasInit :: [Subsystem] -> IO [Subsystem]
-wasInit ss = liftM toFlags $ inHSDLWasInit $ fromFlags ss
+wasInit ss = liftM toFlags $ inSDLWasInit $ fromFlags ss
 
 getError :: IO String
 getError = do
-  p <- inHSDLGetError
+  p <- inSDLGetError
   peekCString p
 
 ----------
 
-#include <HSDL.h>
+#include <SDL.h>
 #undef main
 
-foreign import ccall "HSDL.h HSDL_Init"          inHSDLInit :: Word32 -> IO Int
-foreign import ccall "HSDL.h HSDL_InitSubSystem" inHSDLInitSubSystem :: Word32 -> IO Int
-foreign import ccall "HSDL.h HSDL_Quit"          inHSDLQuit :: IO ()
-foreign import ccall "HSDL.h HSDL_QuitSubSystem" inHSDLQuitSubSystem :: Word32 -> IO ()
-foreign import ccall "HSDL.h HSDL_WasInit"       inHSDLWasInit :: Word32 -> IO Word32
-foreign import ccall "HSDL.h HSDL_GetError"      inHSDLGetError :: IO CString
+foreign import ccall "SDL.h SDL_Init"          inSDLInit :: Word32 -> IO Int
+foreign import ccall "SDL.h SDL_InitSubSystem" inSDLInitSubSystem :: Word32 -> IO Int
+foreign import ccall "SDL.h SDL_Quit"          inSDLQuit :: IO ()
+foreign import ccall "SDL.h SDL_QuitSubSystem" inSDLQuitSubSystem :: Word32 -> IO ()
+foreign import ccall "SDL.h SDL_WasInit"       inSDLWasInit :: Word32 -> IO Word32
+foreign import ccall "SDL.h SDL_GetError"      inSDLGetError :: IO CString

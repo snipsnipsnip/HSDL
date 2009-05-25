@@ -61,76 +61,76 @@ instance Enum HatState where
 ----------
 
 numJoysticks :: IO Int
-numJoysticks = inHSDLNumJoysticks
+numJoysticks = inSDLNumJoysticks
 
 joystickName :: Int -> IO String
 joystickName n = do
-  pstr <- inHSDLJoystickName n
+  pstr <- inSDLJoystickName n
   peekCString pstr
 
 joystickOpen :: Int -> IO Joystick
-joystickOpen = inHSDLJoystickOpen
+joystickOpen = inSDLJoystickOpen
 
 joystickOpened :: Int -> IO Bool
-joystickOpened n = liftM toBool $ inHSDLJoystickOpened n
+joystickOpened n = liftM toBool $ inSDLJoystickOpened n
 
 joystickIndex :: Joystick -> IO Int
-joystickIndex = inHSDLJoystickIndex
+joystickIndex = inSDLJoystickIndex
 
 joystickNumAxes :: Joystick -> IO Int
-joystickNumAxes = inHSDLJoystickNumAxes
+joystickNumAxes = inSDLJoystickNumAxes
 
 joystickNumBalls :: Joystick -> IO Int
-joystickNumBalls = inHSDLJoystickNumBalls
+joystickNumBalls = inSDLJoystickNumBalls
 
 joystickNumHats :: Joystick -> IO Int
-joystickNumHats = inHSDLJoystickNumHats
+joystickNumHats = inSDLJoystickNumHats
 
 joystickNumButtons :: Joystick -> IO Int
-joystickNumButtons = inHSDLJoystickNumButtons
+joystickNumButtons = inSDLJoystickNumButtons
 
 joystickUpdate :: IO ()
-joystickUpdate = inHSDLJoystickUpdate
+joystickUpdate = inSDLJoystickUpdate
 
 joystickGetAxis :: Joystick -> Int -> IO Int
-joystickGetAxis j n = liftM fromEnum $ inHSDLJoystickGetAxis j n
+joystickGetAxis j n = liftM fromEnum $ inSDLJoystickGetAxis j n
 
 joystickGetHat :: Joystick -> Int -> IO HatState
-joystickGetHat j n = liftM (toEnum.fromEnum) $ inHSDLJoystickGetHat j n
+joystickGetHat j n = liftM (toEnum.fromEnum) $ inSDLJoystickGetHat j n
 
 joystickGetButton :: Joystick -> Int -> IO Bool
-joystickGetButton j n = liftM toBool $ inHSDLJoystickGetButton j n
+joystickGetButton j n = liftM toBool $ inSDLJoystickGetButton j n
 
 joystickGetBall :: Joystick -> Int -> IO (Maybe Point)
 joystickGetBall j n =
   alloca $ \pdx ->
   alloca $ \pdy -> do
-    ret <- inHSDLJoystickGetBall j n pdx pdy
+    ret <- inSDLJoystickGetBall j n pdx pdy
     dx  <- peek pdx
     dy  <- peek pdy
     return $ if ret==0 then Just $ pt dx dy
                else Nothing
 
 joystickClose :: Joystick -> IO ()
-joystickClose = inHSDLJoystickClose
+joystickClose = inSDLJoystickClose
 
 ----------
 
-#include <HSDL.h>
+#include <SDL.h>
 #undef main
 
-foreign import ccall "HSDL.h HSDL_NumJoysticks"       inHSDLNumJoysticks       :: IO Int
-foreign import ccall "HSDL.h HSDL_JoystickName"       inHSDLJoystickName       :: Int -> IO CString
-foreign import ccall "HSDL.h HSDL_JoystickOpen"       inHSDLJoystickOpen       :: Int -> IO Joystick
-foreign import ccall "HSDL.h HSDL_JoystickOpened"     inHSDLJoystickOpened     :: Int -> IO Int
-foreign import ccall "HSDL.h HSDL_JoystickIndex"      inHSDLJoystickIndex      :: Joystick -> IO Int
-foreign import ccall "HSDL.h HSDL_JoystickNumAxes"    inHSDLJoystickNumAxes    :: Joystick -> IO Int
-foreign import ccall "HSDL.h HSDL_JoystickNumBalls"   inHSDLJoystickNumBalls   :: Joystick -> IO Int
-foreign import ccall "HSDL.h HSDL_JoystickNumHats"    inHSDLJoystickNumHats    :: Joystick -> IO Int
-foreign import ccall "HSDL.h HSDL_JoystickNumButtons" inHSDLJoystickNumButtons :: Joystick -> IO Int
-foreign import ccall "HSDL.h HSDL_JoystickUpdate"     inHSDLJoystickUpdate     :: IO ()
-foreign import ccall "HSDL.h HSDL_JoystickGetAxis"    inHSDLJoystickGetAxis    :: Joystick -> Int -> IO Int16
-foreign import ccall "HSDL.h HSDL_JoystickGetHat"     inHSDLJoystickGetHat     :: Joystick -> Int -> IO Word8
-foreign import ccall "HSDL.h HSDL_JoystickGetButton"  inHSDLJoystickGetButton  :: Joystick -> Int -> IO Word8
-foreign import ccall "HSDL.h HSDL_JoystickGetBall"    inHSDLJoystickGetBall    :: Joystick -> Int -> Ptr Int -> Ptr Int -> IO Int
-foreign import ccall "HSDL.h HSDL_JoystickClose"      inHSDLJoystickClose      :: Joystick -> IO ()
+foreign import ccall "SDL.h SDL_NumJoysticks"       inSDLNumJoysticks       :: IO Int
+foreign import ccall "SDL.h SDL_JoystickName"       inSDLJoystickName       :: Int -> IO CString
+foreign import ccall "SDL.h SDL_JoystickOpen"       inSDLJoystickOpen       :: Int -> IO Joystick
+foreign import ccall "SDL.h SDL_JoystickOpened"     inSDLJoystickOpened     :: Int -> IO Int
+foreign import ccall "SDL.h SDL_JoystickIndex"      inSDLJoystickIndex      :: Joystick -> IO Int
+foreign import ccall "SDL.h SDL_JoystickNumAxes"    inSDLJoystickNumAxes    :: Joystick -> IO Int
+foreign import ccall "SDL.h SDL_JoystickNumBalls"   inSDLJoystickNumBalls   :: Joystick -> IO Int
+foreign import ccall "SDL.h SDL_JoystickNumHats"    inSDLJoystickNumHats    :: Joystick -> IO Int
+foreign import ccall "SDL.h SDL_JoystickNumButtons" inSDLJoystickNumButtons :: Joystick -> IO Int
+foreign import ccall "SDL.h SDL_JoystickUpdate"     inSDLJoystickUpdate     :: IO ()
+foreign import ccall "SDL.h SDL_JoystickGetAxis"    inSDLJoystickGetAxis    :: Joystick -> Int -> IO Int16
+foreign import ccall "SDL.h SDL_JoystickGetHat"     inSDLJoystickGetHat     :: Joystick -> Int -> IO Word8
+foreign import ccall "SDL.h SDL_JoystickGetButton"  inSDLJoystickGetButton  :: Joystick -> Int -> IO Word8
+foreign import ccall "SDL.h SDL_JoystickGetBall"    inSDLJoystickGetBall    :: Joystick -> Int -> Ptr Int -> Ptr Int -> IO Int
+foreign import ccall "SDL.h SDL_JoystickClose"      inSDLJoystickClose      :: Joystick -> IO ()

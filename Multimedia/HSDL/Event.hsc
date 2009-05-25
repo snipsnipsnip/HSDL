@@ -267,30 +267,30 @@ data Keysym = Keysym
 ----------------
 
 pumpEvents :: IO ()
-pumpEvents = inHSDLPumpEvents
+pumpEvents = inSDLPumpEvents
 
 -- sdlPeepEvent
 -- ‚»‚Ì‚Ü‚Ü‚Å‚Í‚Ç‚¤‚É‚à‰˜‚¢‚Ì‚ÅAˆÈ‰º‚Ì2‚Â‚ÌŠÖ”‚É•ª‰ð
 pushEvents :: [Event] -> IO Bool
 pushEvents e =
   withArray e $ \p -> do
-     ret <- inHSDLPeepEvents p (length e) 0 0
+     ret <- inSDLPeepEvents p (length e) 0 0
      return $ ret /= -1
 
 peekEvents :: Int -> [EventFlag] -> Bool -> IO (Bool,[Event])
 peekEvents num ef remove =
   allocaArray num $ \p -> do
-    ret <- inHSDLPeepEvents p num (if remove then 2 else 1) (fromFlags ef)
+    ret <- inSDLPeepEvents p num (if remove then 2 else 1) (fromFlags ef)
     if ret == -1 then return (False,[])
       else do
         ev  <- peekArray ret p
         return (True,ev)
 
 pollEvent :: IO (Maybe Event)
-pollEvent = intPollEvent inHSDLPollEvent
+pollEvent = intPollEvent inSDLPollEvent
 
 waitEvent :: IO (Maybe Event)
-waitEvent = intPollEvent inHSDLWaitEvent
+waitEvent = intPollEvent inSDLWaitEvent
 
 intPollEvent c = 
   alloca $ \p -> do
@@ -303,7 +303,7 @@ intPollEvent c =
 setEventFilter :: (Event -> Bool) -> IO ()
 setEventFilter f = do
   fp <- mkEventFilter (wrap f)
-  inHSDLSetEventFilter fp
+  inSDLSetEventFilter fp
   where
     wrap f ep = do
       ev <- peek ep
@@ -321,43 +321,43 @@ foreign import ccall "wrapper" mkEventFilter :: EventFilter -> IO (FunPtr EventF
 getKeyState :: IO [HSDLKey]
 getKeyState =
   alloca $ \p -> do
-    ptr <- inHSDLGetKeyState p
+    ptr <- inSDLGetKeyState p
     n   <- peek p
     ret <- peekArray n ptr
     return $ [toEnum a | a <- [0..n-1], (ret!!a)==1]
 
 getModState :: IO [HSDLMod]
 getModState = do
-  ret <- inHSDLGetModState
+  ret <- inSDLGetModState
   return $ toFlags ret
 
 setModState :: [HSDLMod] -> IO ()
 setModState ms =
-  inHSDLSetModState $ fromFlags ms
+  inSDLSetModState $ fromFlags ms
 
 getKeyName :: HSDLKey -> IO String
 getKeyName k = do
-  str <- inHSDLGetKeyName $ fromEnum k
+  str <- inSDLGetKeyName $ fromEnum k
   peekCString str
 
 enableUNICODE :: Maybe Bool -> IO Bool
 enableUNICODE Nothing = do
-  ret <- inHSDLEnableUNICODE (-1)
+  ret <- inSDLEnableUNICODE (-1)
   return $ toBool ret
 enableUNICODE (Just e) = do
-  ret <- inHSDLEnableUNICODE $ fromBool e
+  ret <- inSDLEnableUNICODE $ fromBool e
   return $ toBool ret
 
 enableKeyRepeat :: Int -> Int -> IO Bool
 enableKeyRepeat delay interval = do
-  ret <- inHSDLEnableKeyRepeat delay interval
+  ret <- inSDLEnableKeyRepeat delay interval
   return $ ret==0
 
 getMouseState :: IO (Point,[MouseButton])
-getMouseState = intMouseState inHSDLGetMouseState
+getMouseState = intMouseState inSDLGetMouseState
 
 getRelativeMouseState :: IO (Point,[MouseButton])
-getRelativeMouseState = intMouseState inHSDLGetRelativeMouseState
+getRelativeMouseState = intMouseState inSDLGetRelativeMouseState
 
 intMouseState f =
   alloca $ \px ->
@@ -369,7 +369,7 @@ intMouseState f =
 
 getAppState :: IO [AppStates]
 getAppState = do
-  ret <- inHSDLGetAppState
+  ret <- inSDLGetAppState
   return $ toFlags ret
 
 -- ‚±‚ê‚à–¢ŽÀ‘•c‚æ‚­‚í‚©‚ç‚ñ
@@ -377,27 +377,27 @@ getAppState = do
 
 ----------------
 
-#include <HSDL.h>
+#include <SDL.h>
 #undef main
 
-foreign import ccall "HSDL.h HSDL_PumpEvents" inHSDLPumpEvents :: IO ()
-foreign import ccall "HSDL.h HSDL_PeepEvents" inHSDLPeepEvents :: Ptr Event -> Int -> Int -> Word32 -> IO Int
-foreign import ccall "HSDL.h HSDL_PollEvent" inHSDLPollEvent :: Ptr Event -> IO Int
-foreign import ccall "HSDL.h HSDL_WaitEvent" inHSDLWaitEvent :: Ptr Event -> IO Int
-foreign import ccall "HSDL.h HSDL_PushEvent" inHSDLPushEvent :: Ptr Event -> IO Int
+foreign import ccall "SDL.h SDL_PumpEvents" inSDLPumpEvents :: IO ()
+foreign import ccall "SDL.h SDL_PeepEvents" inSDLPeepEvents :: Ptr Event -> Int -> Int -> Word32 -> IO Int
+foreign import ccall "SDL.h SDL_PollEvent" inSDLPollEvent :: Ptr Event -> IO Int
+foreign import ccall "SDL.h SDL_WaitEvent" inSDLWaitEvent :: Ptr Event -> IO Int
+foreign import ccall "SDL.h SDL_PushEvent" inSDLPushEvent :: Ptr Event -> IO Int
 
-foreign import ccall "HSDL.h HSDL_SetEventFilter" inHSDLSetEventFilter :: FunPtr EventFilter -> IO ()
-foreign import ccall "HSDL.h HSDL_GetEventFilter" inHSDLGetEventFilter :: IO (FunPtr EventFilter)
+foreign import ccall "SDL.h SDL_SetEventFilter" inSDLSetEventFilter :: FunPtr EventFilter -> IO ()
+foreign import ccall "SDL.h SDL_GetEventFilter" inSDLGetEventFilter :: IO (FunPtr EventFilter)
 
-foreign import ccall "HSDL.h HSDL_EventState"  inHSDLEventState  :: Word8 -> Int -> IO Word8
-foreign import ccall "HSDL.h HSDL_GetKeyState" inHSDLGetKeyState :: Ptr Int -> IO (Ptr Word8)
-foreign import ccall "HSDL.h HSDL_GetModState" inHSDLGetModState :: IO Word32
-foreign import ccall "HSDL.h HSDL_SetModState" inHSDLSetModState :: Word32 -> IO ()
-foreign import ccall "HSDL.h HSDL_GetKeyName"  inHSDLGetKeyName  :: Int -> IO CString
+foreign import ccall "SDL.h SDL_EventState"  inSDLEventState  :: Word8 -> Int -> IO Word8
+foreign import ccall "SDL.h SDL_GetKeyState" inSDLGetKeyState :: Ptr Int -> IO (Ptr Word8)
+foreign import ccall "SDL.h SDL_GetModState" inSDLGetModState :: IO Word32
+foreign import ccall "SDL.h SDL_SetModState" inSDLSetModState :: Word32 -> IO ()
+foreign import ccall "SDL.h SDL_GetKeyName"  inSDLGetKeyName  :: Int -> IO CString
 
-foreign import ccall "HSDL.h HSDL_EnableUNICODE"         inHSDLEnableUNICODE         :: Int -> IO Int
-foreign import ccall "HSDL.h HSDL_EnableKeyRepeat"       inHSDLEnableKeyRepeat       :: Int -> Int -> IO Int
-foreign import ccall "HSDL.h HSDL_GetMouseState"         inHSDLGetMouseState         :: Ptr Int -> Ptr Int -> IO Word8
-foreign import ccall "HSDL.h HSDL_GetRelativeMouseState" inHSDLGetRelativeMouseState :: Ptr Int -> Ptr Int -> IO Word8
-foreign import ccall "HSDL.h HSDL_GetAppState"           inHSDLGetAppState           :: IO Word8
-foreign import ccall "HSDL.h HSDL_JoystickEventState"    inHSDLJoystickEventState    :: Int -> IO Int
+foreign import ccall "SDL.h SDL_EnableUNICODE"         inSDLEnableUNICODE         :: Int -> IO Int
+foreign import ccall "SDL.h SDL_EnableKeyRepeat"       inSDLEnableKeyRepeat       :: Int -> Int -> IO Int
+foreign import ccall "SDL.h SDL_GetMouseState"         inSDLGetMouseState         :: Ptr Int -> Ptr Int -> IO Word8
+foreign import ccall "SDL.h SDL_GetRelativeMouseState" inSDLGetRelativeMouseState :: Ptr Int -> Ptr Int -> IO Word8
+foreign import ccall "SDL.h SDL_GetAppState"           inSDLGetAppState           :: IO Word8
+foreign import ccall "SDL.h SDL_JoystickEventState"    inSDLJoystickEventState    :: Int -> IO Int
