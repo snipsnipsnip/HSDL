@@ -1,11 +1,11 @@
 module Multimedia.HSDL.Keysym (
-  HSDLKey(..),
-  HSDLMod(..),
+  SDLKey(..),
+  SDLMod(..),
 ) where
 
 import Multimedia.HSDL.Util
 
-data HSDLKey =
+data SDLKey =
     HSDLK_UNKNOWN   -- 0
   | HSDLK_FIRST     -- 0
   | HSDLK_BACKSPACE -- 8
@@ -261,7 +261,7 @@ data HSDLKey =
   | HSDLK_LAST
   deriving (Eq,Show)
 
-instance Enum HSDLKey where
+instance Enum SDLKey where
   fromEnum HSDLK_UNKNOWN   = 0
   fromEnum HSDLK_FIRST     = 0
   fromEnum HSDLK_BACKSPACE = 8
@@ -751,7 +751,7 @@ instance Enum HSDLKey where
   toEnum 323 = HSDLK_LAST   -- 323
   toEnum _   = HSDLK_UNKNOWN
 
-data HSDLMod =
+data SDLMod =
     KMOD_NONE
   | KMOD_LSHIFT
   | KMOD_RSHIFT
@@ -772,7 +772,7 @@ data HSDLMod =
   | KMOD_META
   deriving (Eq,Show,Enum)
 
-instance Flag HSDLMod where
+instance Flag SDLMod where
   fromFlag KMOD_NONE  = 0x0000
   fromFlag KMOD_LSHIFT= 0x0001
   fromFlag KMOD_RSHIFT= 0x0002
