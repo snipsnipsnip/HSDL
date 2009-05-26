@@ -52,31 +52,41 @@ data Event =
 --  | SysWMEvent {}
   deriving (Eq,Show)
 
+instance Storable Keysym where
+  sizeOf    _ = #size SDL_keysym
+  alignment _ = 4
+  peek p = do
+   (sc :: Word8)  <- (#peek SDL_keysym, scancode) p
+   (sy :: #type SDLKey)  <- (#peek SDL_keysym, sym) p
+   (mo :: #type SDLMod)  <- (#peek SDL_keysym, mod) p
+   (un :: Word16) <- (#peek SDL_keysym, unicode) p
+   return $ Keysym sc (toEnum $ fromIntegral sy) (toFlags mo) un
+  poke p Keysym { ksScancode = sc, ksSym = sy, ksMod = mo, ksUnicode = un } = do
+    (#poke SDL_keysym, scancode) p sc
+    (#poke SDL_keysym, sym) p (fromIntegral $ fromEnum sy :: #type SDLKey)
+    (#poke SDL_keysym, mod) p (fromFlags mo :: #type SDLMod)
+    (#poke SDL_keysym, unicode) p un
+
 instance Storable Event where
-  sizeOf    _ = 20 -- KeyboardEventが最大、20バイト
+  sizeOf    _ = #size SDL_Event
   alignment _ = 4
 
   peek p = do
-    (t :: Word8) <- peekByteOff p 0
+    (t :: Word8) <- (#peek SDL_Event, type) p
     case t of
        -- ACTIVEEVENT
-       1 -> do
-         (g :: Word8) <- peekByteOff p 1
-         (s :: Word8) <- peekByteOff p 2
+       (#const SDL_ACTIVEEVENT) -> do
+         (g :: Word8) <- (#peek SDL_ActiveEvent, gain) p
+         (s :: Word8) <- (#peek SDL_ActiveEvent, state) p
          return $ ActiveEvent (toBool g) (toFlags s)
 
-       -- HSDL_KEYDOWN
-       -- HSDL_KEYUP
-       _ | t==2 || t==3 -> do
-         (s  :: Word8)  <- peekByteOff p 2
-         (sc :: Word8)  <- peekByteOff p 4
-         (sy :: Int  )  <- peekByteOff p 8
-         (mo :: Int  )  <- peekByteOff p 12
-         (un :: Word16) <- peekByteOff p 16
-         return $ KeyboardEvent (t==2) (toBool s) $ Keysym sc (toEnum sy) (toFlags mo) un
-
-       -- HSDL_MOUSEMOTION
-       4 -> do
+       -- KEYDOWN
+       -- KEYUP
+       (#const SDL_KEYDOWN) -> peekKeyboardEvent True p
+       (#const SDL_KEYUP) -> peekKeyboardEvent False p
+       
+       -- MOUSEMOTION
+       (#const SDL_MOUSEMOTION) -> do
          (s  :: Word8)  <- peekByteOff p 2
          (x  :: Word16) <- peekByteOff p 4
          (y  :: Word16) <- peekByteOff p 6
@@ -140,6 +150,12 @@ instance Storable Event where
        -- EVENT_RESERVEDB 15
        -- USEREVENT       24-32
        _ -> return $ UnknownEvent t
+    where
+    peekKeyboardEvent down p = do
+     (s  :: Word8)  <- (#peek SDL_KeyboardEvent, state) p
+     (sc :: Word8)  <- (#peek SDL_KeyboardEvent, state) p
+     sym <- (#peek SDL_KeyboardEvent, keysym) p
+     return $ KeyboardEvent down (toBool s) sym
 
   poke p (ActiveEvent { acGain = g, acState = ss }) = do
     pokeByteOff p 0 (1          :: Word8)

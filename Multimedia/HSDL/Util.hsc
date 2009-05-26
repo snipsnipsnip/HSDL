@@ -49,21 +49,21 @@ data Color = Color
   deriving (Eq,Show)
 
 instance Storable Color where
-  sizeOf    _ = 4
+  sizeOf    _ = #size SDL_Color
   alignment _ = 4
 
   peek p = do
-    r <- peekByteOff p 0
-    g <- peekByteOff p 1
-    b <- peekByteOff p 2
-    a <- peekByteOff p 3
-    return $ Color r g b a
+    r <- (#peek SDL_Color, r) p
+    g <- (#peek SDL_Color, g) p
+    b <- (#peek SDL_Color, b) p
+    a <- (#peek SDL_Color, unused) p
+    return Color { colR = r, colG = g, colB = b, colA = a }
 
-  poke p col = do
-    pokeByteOff p 0 $ colR col
-    pokeByteOff p 1 $ colR col
-    pokeByteOff p 2 $ colR col
-    pokeByteOff p 3 $ colR col
+  poke p Color { colR = r, colG = g, colB = b, colA = a } = do
+    (#poke SDL_Color, r) p r
+    (#poke SDL_Color, g) p g
+    (#poke SDL_Color, b) p b
+    (#poke SDL_Color, unused) p a
 
 color :: Word8 -> Word8 -> Word8 -> Color
 color r g b    = Color r g b 255
@@ -77,5 +77,5 @@ colorA r g b a = Color r g b a
 #undef main
 
 type EventState = CInt
-#enum EventState, id, SDL_QUERY, SDL_IGNORE, SDL_ENABLE
+#enum EventState, , SDL_QUERY, SDL_IGNORE, SDL_ENABLE
 

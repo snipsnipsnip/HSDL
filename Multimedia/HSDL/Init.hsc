@@ -21,14 +21,14 @@ data Subsystem =
   deriving (Eq,Show,Enum)
 
 instance Flag Subsystem where
-  fromFlag TIMER       = 0x00000001
-  fromFlag AUDIO       = 0x00000010
-  fromFlag VIDEO       = 0x00000020
-  fromFlag CDROM       = 0x00000100
-  fromFlag JOYSTICK    = 0x00000200
-  fromFlag NOPARACHUTE = 0x00100000
-  fromFlag EVENTTHREAD = 0x01000000
-  fromFlag EVERYTHING  = 0x0000FFFF
+  fromFlag TIMER       = #const SDL_INIT_TIMER
+  fromFlag AUDIO       = #const SDL_INIT_AUDIO
+  fromFlag VIDEO       = #const SDL_INIT_VIDEO
+  fromFlag CDROM       = #const SDL_INIT_CDROM
+  fromFlag JOYSTICK    = #const SDL_INIT_JOYSTICK
+  fromFlag NOPARACHUTE = #const SDL_INIT_NOPARACHUTE
+  fromFlag EVENTTHREAD = #const SDL_INIT_EVENTTHREAD
+  fromFlag EVERYTHING  = #const SDL_INIT_EVERYTHING
 
 ----------
 
