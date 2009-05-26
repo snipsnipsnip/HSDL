@@ -6,6 +6,8 @@ module Multimedia.HSDL.Event(
   AppStates(..),
   MouseButton(..),
   Keysym(..),
+  Size(..),
+  Point(..),
   EventFilter,
 
   pumpEvents,
