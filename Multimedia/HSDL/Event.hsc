@@ -273,8 +273,8 @@ instance Flag MouseButton where
 
 data Keysym = Keysym
   { ksScancode :: Word8
-  , ksSym      :: HSDLKey
-  , ksMod      :: [HSDLMod]
+  , ksSym      :: SDLKey
+  , ksMod      :: [SDLMod]
   , ksUnicode  :: Word16
   }
   deriving (Eq,Show)
@@ -351,7 +351,7 @@ setEventState flag enable = do
   where
   state = if enable then sdlEnable else sdlIgnore
 
-getKeyState :: IO [HSDLKey]
+getKeyState :: IO [SDLKey]
 getKeyState =
   alloca $ \p -> do
     ptr <- inSDLGetKeyState p
@@ -359,16 +359,16 @@ getKeyState =
     ret <- peekArray n ptr
     return $ [toEnum a | a <- [0..n-1], (ret!!a)==1]
 
-getModState :: IO [HSDLMod]
+getModState :: IO [SDLMod]
 getModState = do
   ret <- inSDLGetModState
   return $ toFlags ret
 
-setModState :: [HSDLMod] -> IO ()
+setModState :: [SDLMod] -> IO ()
 setModState ms =
   inSDLSetModState $ fromFlags ms
 
-getKeyName :: HSDLKey -> IO String
+getKeyName :: SDLKey -> IO String
 getKeyName k = do
   str <- inSDLGetKeyName $ fromEnum k
   peekCString str
