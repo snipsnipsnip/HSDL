@@ -104,7 +104,7 @@ joystickGetHat j n = liftM (toEnum.fromEnum) $ inSDLJoystickGetHat j n
 joystickGetButton :: Joystick -> Int -> IO Bool
 joystickGetButton j n = liftM toBool $ inSDLJoystickGetButton j n
 
-joystickGetBall :: Joystick -> Int -> IO (Maybe (Int, Int))
+joystickGetBall :: Joystick -> Int -> IO (Maybe Point)
 joystickGetBall j n =
   alloca $ \pdx ->
   alloca $ \pdy -> do
@@ -113,7 +113,7 @@ joystickGetBall j n =
     dy  <- peek pdy
     return $ do
       guard $ ret == 0
-      return (dx,dy)
+      return $ Point dx dy
 
 joystickClose :: Joystick -> IO ()
 joystickClose = inSDLJoystickClose
