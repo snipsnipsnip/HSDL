@@ -12,8 +12,10 @@ module Multimedia.HSDL.Event(
 
   pumpEvents,
   pushEvents,
+  pushEvent,
   peekEvents,
   pollEvent,
+  pollEvents,
   waitEvent,
   setEventFilter,
 
@@ -36,6 +38,7 @@ import Foreign
 import Foreign.C
 import Multimedia.HSDL.Util
 import Multimedia.HSDL.Keysym
+import Control.Monad
 
 data Event =
     ActiveEvent    { acGain  :: Bool, acState :: [AppStates] }
@@ -314,6 +317,15 @@ type EventAction = #type SDL_eventaction
 
 pollEvent :: IO (Maybe Event)
 pollEvent = intPollEvent inSDLPollEvent
+
+pollEvents :: IO [Event]
+pollEvents = alloca loop
+  where
+  loop p = do
+    ret <- inSDLPollEvent p
+    if ret == 0
+      then return []
+      else liftM2 (:) (peek p) (loop p)
 
 waitEvent :: IO (Maybe Event)
 waitEvent = intPollEvent inSDLWaitEvent

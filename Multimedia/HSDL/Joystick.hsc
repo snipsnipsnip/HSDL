@@ -31,35 +31,35 @@ import Multimedia.HSDL.Util
 type Joystick = Ptr ()
 
 data HatState =
-    HAT_CENTERD
+    HAT_CENTERED
   | HAT_UP | HAT_RIGHT | HAT_DOWN | HAT_LEFT
   | HAT_RIGHTUP | HAT_RIGHTDOWN | HAT_LEFTUP | HAT_LEFTDOWN
   deriving (Eq,Show)
 
 instance Enum HatState where
-  fromEnum HAT_CENTERD = 0x00
+  fromEnum HAT_CENTERED = #const SDL_HAT_CENTERED
 
-  fromEnum HAT_UP      = 0x01
-  fromEnum HAT_RIGHT   = 0x02
-  fromEnum HAT_DOWN    = 0x04
-  fromEnum HAT_LEFT    = 0x08
+  fromEnum HAT_UP      = #const SDL_HAT_UP
+  fromEnum HAT_RIGHT   = #const SDL_HAT_RIGHT
+  fromEnum HAT_DOWN    = #const SDL_HAT_DOWN
+  fromEnum HAT_LEFT    = #const SDL_HAT_LEFT
 
-  fromEnum HAT_RIGHTUP   = 0x03
-  fromEnum HAT_RIGHTDOWN = 0x06
-  fromEnum HAT_LEFTUP    = 0x09
-  fromEnum HAT_LEFTDOWN  = 0x0C
+  fromEnum HAT_RIGHTUP   = #const SDL_HAT_RIGHTUP
+  fromEnum HAT_RIGHTDOWN = #const SDL_HAT_RIGHTDOWN
+  fromEnum HAT_LEFTUP    = #const SDL_HAT_LEFTUP
+  fromEnum HAT_LEFTDOWN  = #const SDL_HAT_LEFTDOWN
 
-  toEnum 0x00 = HAT_CENTERD
+  toEnum (#const SDL_HAT_CENTERED) = HAT_CENTERED
 
-  toEnum 0x01 = HAT_UP
-  toEnum 0x02 = HAT_RIGHT
-  toEnum 0x04 = HAT_DOWN
-  toEnum 0x08 = HAT_LEFT
+  toEnum (#const SDL_HAT_UP) = HAT_UP
+  toEnum (#const SDL_HAT_RIGHT) = HAT_RIGHT
+  toEnum (#const SDL_HAT_DOWN) = HAT_DOWN
+  toEnum (#const SDL_HAT_LEFT) = HAT_LEFT
 
-  toEnum 0x03 = HAT_RIGHTUP
-  toEnum 0x06 = HAT_RIGHTDOWN
-  toEnum 0x09 = HAT_LEFTUP
-  toEnum 0x0C = HAT_LEFTDOWN
+  toEnum (#const SDL_HAT_RIGHTUP) = HAT_RIGHTUP
+  toEnum (#const SDL_HAT_RIGHTDOWN) = HAT_RIGHTDOWN
+  toEnum (#const SDL_HAT_LEFTUP) = HAT_LEFTUP
+  toEnum (#const SDL_HAT_LEFTDOWN) = HAT_LEFTDOWN
 
 ----------
 
