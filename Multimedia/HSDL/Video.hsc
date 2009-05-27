@@ -128,23 +128,6 @@ ptrToSurface p = do
 
 type Palette = [Color]
 
-instance Storable Rect where
-  sizeOf    _ = 8
-  alignment _ = 4
-
-  peek p = do
-    (x :: Int16)  <- peekByteOff p 0
-    (y :: Int16)  <- peekByteOff p 2
-    (w :: Word16) <- peekByteOff p 4
-    (h :: Word16) <- peekByteOff p 6
-    return $ Rect (fromEnum x) (fromEnum y) (fromEnum w) (fromEnum h)
-
-  poke p rc = do
-    pokeByteOff p 0 $ (toEnum :: Int -> Int16)  $ rectLeft   rc
-    pokeByteOff p 2 $ (toEnum :: Int -> Int16)  $ rectTop    rc
-    pokeByteOff p 4 $ (toEnum :: Int -> Word16) $ rectWidth  rc
-    pokeByteOff p 6 $ (toEnum :: Int -> Word16) $ rectHeight rc
-
 data PixelFormat = PixelFormat
   { pfPalette      :: Palette
   , pfBitPerPixel  :: Int8
