@@ -18,6 +18,8 @@ module Multimedia.HSDL.Joystick(
   joystickGetBall,
   joystickClose,
 
+  getJoystickEventState,
+  setJoystickEventState
 ) where
 
 import Foreign
