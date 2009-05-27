@@ -102,15 +102,16 @@ joystickGetHat j n = liftM (toEnum.fromEnum) $ inSDLJoystickGetHat j n
 joystickGetButton :: Joystick -> Int -> IO Bool
 joystickGetButton j n = liftM toBool $ inSDLJoystickGetButton j n
 
-joystickGetBall :: Joystick -> Int -> IO (Maybe Point)
+joystickGetBall :: Joystick -> Int -> IO (Maybe (Int, Int))
 joystickGetBall j n =
   alloca $ \pdx ->
   alloca $ \pdy -> do
     ret <- inSDLJoystickGetBall j n pdx pdy
     dx  <- peek pdx
     dy  <- peek pdy
-    return $ if ret==0 then Just $ pt dx dy
-               else Nothing
+    return $ do
+      guard $ ret == 0
+      return (dx,dy)
 
 joystickClose :: Joystick -> IO ()
 joystickClose = inSDLJoystickClose

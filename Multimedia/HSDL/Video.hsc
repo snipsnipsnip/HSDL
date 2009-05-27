@@ -128,23 +128,6 @@ ptrToSurface p = do
 
 type Palette = [Color]
 
-instance Storable Rect where
-  sizeOf    _ = 8
-  alignment _ = 4
-
-  peek p = do
-    (x :: Int16)  <- peekByteOff p 0
-    (y :: Int16)  <- peekByteOff p 2
-    (w :: Word16) <- peekByteOff p 4
-    (h :: Word16) <- peekByteOff p 6
-    return $ Rect (fromEnum x) (fromEnum y) (fromEnum w) (fromEnum h)
-
-  poke p rc = do
-    pokeByteOff p 0 $ (toEnum :: Int -> Int16)  $ rectLeft   rc
-    pokeByteOff p 2 $ (toEnum :: Int -> Int16)  $ rectTop    rc
-    pokeByteOff p 4 $ (toEnum :: Int -> Word16) $ rectWidth  rc
-    pokeByteOff p 6 $ (toEnum :: Int -> Word16) $ rectHeight rc
-
 data PixelFormat = PixelFormat
   { pfPalette      :: Palette
   , pfBitPerPixel  :: Int8
@@ -419,7 +402,7 @@ getRGB pf col =
   with 0  $ \pg  ->
   with 0  $ \pb  -> do
     inSDLGetRGB col ppf pr pg pb
-    liftM3 color (peek pr) (peek pg) (peek pb)
+    liftM4 Color (peek pr) (peek pg) (peek pb) (return 255)
 
 getRGBA :: PixelFormat -> Word32 -> IO Color
 getRGBA pf col =
@@ -429,7 +412,7 @@ getRGBA pf col =
   with 0  $ \pb  ->
   with 0  $ \pa  -> do
     inSDLGetRGBA col ppf pr pg pb pa
-    liftM4 colorA (peek pr) (peek pg) (peek pb) (peek pa)
+    liftM4 Color (peek pr) (peek pg) (peek pb) (peek pa)
 
 createRGBSurface :: [SurfaceFlag] -> Int -> Int -> Int -> Word32 -> Word32 -> Word32 -> Word32 -> IO Surface
 createRGBSurface sf width height depth rmask gmask bmask amask = do
@@ -495,10 +478,10 @@ convertSurface sur pf sf =
     ptrToSurface ret
 
 blitSurface :: Surface -> Maybe Rect -> Surface -> Point -> IO Int
-blitSurface src sr dest pos = do
+blitSurface src sr dest (Point x y) = do
   psr <- case sr of Nothing -> return nullPtr
                     Just sr -> new sr
-  pdr <- new (rect pos (sz 0 0))
+  pdr <- new (Rect x y 0 0)
   ret <- inSDLBlitSurface (surfaceToPtr src) psr (surfaceToPtr dest) pdr
   free psr
   free pdr

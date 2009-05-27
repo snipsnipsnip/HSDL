@@ -1,14 +1,11 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+
 module Multimedia.HSDL.Util(
   Flag(..),
   Point(..),
   Size(..),
   Rect(..),
   Color(..),
-
-  point,pt,
-  size,sz,
-  rect,
-  color, colorA,
   EventState, sdlQuery, sdlEnable, sdlIgnore
 ) where
 
@@ -26,23 +23,29 @@ class (Enum f) => Flag f where
   toFlags n = filter (\f -> (n .&. fromFlag f) == fromFlag f) [toEnum 0 ..]
 
 data Point = Point { pointX, pointY :: Int } deriving (Eq,Show)
-point :: Int -> Int -> Point
-point = Point
-pt :: Int -> Int -> Point
-pt    = Point
 
 data Size  = Size  { sizeW,  sizeH  :: Int } deriving (Eq,Show)
-size :: Int -> Int -> Size
-size = Size
-sz :: Int -> Int -> Size
-sz   = Size
 
 data Rect = Rect
   { rectLeft, rectTop, rectWidth, rectHeight :: Int }
   deriving (Eq,Show)
 
-rect :: Point -> Size -> Rect
-rect (Point x y) (Size w h) = Rect x y w h
+instance Storable Rect where
+  sizeOf    _ = 8
+  alignment _ = 4
+
+  peek p = do
+    (x :: Int16)  <- peekByteOff p 0
+    (y :: Int16)  <- peekByteOff p 2
+    (w :: Word16) <- peekByteOff p 4
+    (h :: Word16) <- peekByteOff p 6
+    return $ Rect (fromEnum x) (fromEnum y) (fromEnum w) (fromEnum h)
+
+  poke p rc = do
+    pokeByteOff p 0 $ (toEnum :: Int -> Int16)  $ rectLeft   rc
+    pokeByteOff p 2 $ (toEnum :: Int -> Int16)  $ rectTop    rc
+    pokeByteOff p 4 $ (toEnum :: Int -> Word16) $ rectWidth  rc
+    pokeByteOff p 6 $ (toEnum :: Int -> Word16) $ rectHeight rc
 
 data Color = Color
   { colR, colG, colB, colA :: Word8 }
@@ -64,12 +67,6 @@ instance Storable Color where
     pokeByteOff p 1 $ colR col
     pokeByteOff p 2 $ colR col
     pokeByteOff p 3 $ colR col
-
-color :: Word8 -> Word8 -> Word8 -> Color
-color r g b    = Color r g b 255
-
-colorA :: Word8 -> Word8 -> Word8 -> Word8 -> Color
-colorA r g b a = Color r g b a
 
 --
 

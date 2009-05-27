@@ -82,7 +82,7 @@ instance Storable Event where
          (y  :: Word16) <- peekByteOff p 6
          (xr :: Int16)  <- peekByteOff p 8
          (yr :: Int16)  <- peekByteOff p 10
-         return $ MouseMotionEvent (toFlags s) (pt (fromEnum x) (fromEnum y)) (pt (fromEnum xr) (fromEnum yr))
+         return $ MouseMotionEvent (toFlags s) (Point (fromEnum x) (fromEnum y)) (Point (fromEnum xr) (fromEnum yr))
 
        -- MOUSEBUTTONDOWN
        -- MOUSEBUTTONUP
@@ -91,7 +91,7 @@ instance Storable Event where
          (s :: Word8)  <- peekByteOff p 3
          (x :: Word16) <- peekByteOff p 4
          (y :: Word16) <- peekByteOff p 6
-         return $ MouseButtonEvent (t==5) ((toEnum.fromEnum) (b-1)) (toBool b) (pt (fromEnum x) (fromEnum y))
+         return $ MouseButtonEvent (t==5) ((toEnum.fromEnum) (b-1)) (toBool b) (Point (fromEnum x) (fromEnum y))
 
        -- JOYAXISMOTION
        7 -> do
@@ -106,7 +106,7 @@ instance Storable Event where
          (b  :: Word8) <- peekByteOff p 2
          (xr :: Int16) <- peekByteOff p 4
          (yr :: Int16) <- peekByteOff p 6
-         return $ JoyBallEvent (fromEnum w) (fromEnum b) (pt (fromEnum xr) (fromEnum yr))
+         return $ JoyBallEvent (fromEnum w) (fromEnum b) (Point (fromEnum xr) (fromEnum yr))
 
        -- JOYHATMOTION
        9 -> do
@@ -130,7 +130,7 @@ instance Storable Event where
        16 -> do
          (w :: Int) <- peekByteOff p 4
          (h :: Int) <- peekByteOff p 8
-         return $ ResizeEvent (sz w h)
+         return $ ResizeEvent (Size w h)
 
        -- VIDEOEXPOSE
        17 -> return ExposeEvent
@@ -382,7 +382,7 @@ intMouseState f =
     ret <- f px py
     x <- peek px
     y <- peek py
-    return $ (pt x y,toFlags ret)
+    return $ (Point x y,toFlags ret)
 
 getAppState :: IO [AppStates]
 getAppState = do
