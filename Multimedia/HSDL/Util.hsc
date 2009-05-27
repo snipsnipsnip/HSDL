@@ -30,43 +30,26 @@ data Rect = Rect
   { rectLeft, rectTop, rectWidth, rectHeight :: Int }
   deriving (Eq,Show)
 
-instance Storable Rect where
-  sizeOf    _ = 8
-  alignment _ = 4
-
-  peek p = do
-    (x :: Int16)  <- peekByteOff p 0
-    (y :: Int16)  <- peekByteOff p 2
-    (w :: Word16) <- peekByteOff p 4
-    (h :: Word16) <- peekByteOff p 6
-    return $ Rect (fromEnum x) (fromEnum y) (fromEnum w) (fromEnum h)
-
-  poke p rc = do
-    pokeByteOff p 0 $ (toEnum :: Int -> Int16)  $ rectLeft   rc
-    pokeByteOff p 2 $ (toEnum :: Int -> Int16)  $ rectTop    rc
-    pokeByteOff p 4 $ (toEnum :: Int -> Word16) $ rectWidth  rc
-    pokeByteOff p 6 $ (toEnum :: Int -> Word16) $ rectHeight rc
-
 data Color = Color
   { colR, colG, colB, colA :: Word8 }
   deriving (Eq,Show)
 
 instance Storable Color where
-  sizeOf    _ = 4
+  sizeOf    _ = #size SDL_Color
   alignment _ = 4
 
   peek p = do
-    r <- peekByteOff p 0
-    g <- peekByteOff p 1
-    b <- peekByteOff p 2
-    a <- peekByteOff p 3
-    return $ Color r g b a
+    r <- (#peek SDL_Color, r) p
+    g <- (#peek SDL_Color, g) p
+    b <- (#peek SDL_Color, b) p
+    a <- (#peek SDL_Color, unused) p
+    return Color { colR = r, colG = g, colB = b, colA = a }
 
-  poke p col = do
-    pokeByteOff p 0 $ colR col
-    pokeByteOff p 1 $ colR col
-    pokeByteOff p 2 $ colR col
-    pokeByteOff p 3 $ colR col
+  poke p Color { colR = r, colG = g, colB = b, colA = a } = do
+    (#poke SDL_Color, r) p r
+    (#poke SDL_Color, g) p g
+    (#poke SDL_Color, b) p b
+    (#poke SDL_Color, unused) p a
 
 --
 
@@ -74,5 +57,5 @@ instance Storable Color where
 #undef main
 
 type EventState = CInt
-#enum EventState, id, SDL_QUERY, SDL_IGNORE, SDL_ENABLE
+#enum EventState, , SDL_QUERY, SDL_IGNORE, SDL_ENABLE
 

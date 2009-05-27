@@ -1,5 +1,4 @@
 module Multimedia.HSDL(
-  module Multimedia.HSDL.Util,
   module Multimedia.HSDL.Init,
   module Multimedia.HSDL.Video,
   module Multimedia.HSDL.Window,
@@ -10,7 +9,6 @@ module Multimedia.HSDL(
   module Multimedia.HSDL.Joystick,
 ) where
 
-import Multimedia.HSDL.Util
 import Multimedia.HSDL.Init
 import Multimedia.HSDL.Video
 import Multimedia.HSDL.Window

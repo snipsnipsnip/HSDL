@@ -6,12 +6,16 @@ module Multimedia.HSDL.Event(
   AppStates(..),
   MouseButton(..),
   Keysym(..),
+  Size(..),
+  Point(..),
   EventFilter,
 
   pumpEvents,
   pushEvents,
+  pushEvent,
   peekEvents,
   pollEvent,
+  pollEvents,
   waitEvent,
   setEventFilter,
 
@@ -34,6 +38,7 @@ import Foreign
 import Foreign.C
 import Multimedia.HSDL.Util
 import Multimedia.HSDL.Keysym
+import Control.Monad
 
 data Event =
     ActiveEvent    { acGain  :: Bool, acState :: [AppStates] }
@@ -52,31 +57,41 @@ data Event =
 --  | SysWMEvent {}
   deriving (Eq,Show)
 
+instance Storable Keysym where
+  sizeOf    _ = #size SDL_keysym
+  alignment _ = 4
+  peek p = do
+   (sc :: Word8)  <- (#peek SDL_keysym, scancode) p
+   (sy :: #type SDLKey)  <- (#peek SDL_keysym, sym) p
+   (mo :: #type SDLMod)  <- (#peek SDL_keysym, mod) p
+   (un :: Word16) <- (#peek SDL_keysym, unicode) p
+   return $ Keysym sc (toEnum $ fromIntegral sy) (toFlags mo) un
+  poke p Keysym { ksScancode = sc, ksSym = sy, ksMod = mo, ksUnicode = un } = do
+    (#poke SDL_keysym, scancode) p sc
+    (#poke SDL_keysym, sym) p (fromIntegral $ fromEnum sy :: #type SDLKey)
+    (#poke SDL_keysym, mod) p (fromFlags mo :: #type SDLMod)
+    (#poke SDL_keysym, unicode) p un
+
 instance Storable Event where
-  sizeOf    _ = 20 -- KeyboardEventが最大、20バイト
+  sizeOf    _ = #size SDL_Event
   alignment _ = 4
 
   peek p = do
-    (t :: Word8) <- peekByteOff p 0
+    (t :: Word8) <- (#peek SDL_Event, type) p
     case t of
        -- ACTIVEEVENT
-       1 -> do
-         (g :: Word8) <- peekByteOff p 1
-         (s :: Word8) <- peekByteOff p 2
+       (#const SDL_ACTIVEEVENT) -> do
+         (g :: Word8) <- (#peek SDL_ActiveEvent, gain) p
+         (s :: Word8) <- (#peek SDL_ActiveEvent, state) p
          return $ ActiveEvent (toBool g) (toFlags s)
 
-       -- HSDL_KEYDOWN
-       -- HSDL_KEYUP
-       _ | t==2 || t==3 -> do
-         (s  :: Word8)  <- peekByteOff p 2
-         (sc :: Word8)  <- peekByteOff p 4
-         (sy :: Int  )  <- peekByteOff p 8
-         (mo :: Int  )  <- peekByteOff p 12
-         (un :: Word16) <- peekByteOff p 16
-         return $ KeyboardEvent (t==2) (toBool s) $ Keysym sc (toEnum sy) (toFlags mo) un
-
-       -- HSDL_MOUSEMOTION
-       4 -> do
+       -- KEYDOWN
+       -- KEYUP
+       (#const SDL_KEYDOWN) -> peekKeyboardEvent True p
+       (#const SDL_KEYUP) -> peekKeyboardEvent False p
+       
+       -- MOUSEMOTION
+       (#const SDL_MOUSEMOTION) -> do
          (s  :: Word8)  <- peekByteOff p 2
          (x  :: Word16) <- peekByteOff p 4
          (y  :: Word16) <- peekByteOff p 6
@@ -140,6 +155,12 @@ instance Storable Event where
        -- EVENT_RESERVEDB 15
        -- USEREVENT       24-32
        _ -> return $ UnknownEvent t
+    where
+    peekKeyboardEvent down p = do
+     (s  :: Word8)  <- (#peek SDL_KeyboardEvent, state) p
+     (sc :: Word8)  <- (#peek SDL_KeyboardEvent, state) p
+     sym <- (#peek SDL_KeyboardEvent, keysym) p
+     return $ KeyboardEvent down (toBool s) sym
 
   poke p (ActiveEvent { acGain = g, acState = ss }) = do
     pokeByteOff p 0 (1          :: Word8)
@@ -257,8 +278,8 @@ instance Flag MouseButton where
 
 data Keysym = Keysym
   { ksScancode :: Word8
-  , ksSym      :: HSDLKey
-  , ksMod      :: [HSDLMod]
+  , ksSym      :: SDLKey
+  , ksMod      :: [SDLMod]
   , ksUnicode  :: Word16
   }
   deriving (Eq,Show)
@@ -296,6 +317,15 @@ type EventAction = #type SDL_eventaction
 
 pollEvent :: IO (Maybe Event)
 pollEvent = intPollEvent inSDLPollEvent
+
+pollEvents :: IO [Event]
+pollEvents = alloca loop
+  where
+  loop p = do
+    ret <- inSDLPollEvent p
+    if ret == 0
+      then return []
+      else liftM2 (:) (peek p) (loop p)
 
 waitEvent :: IO (Maybe Event)
 waitEvent = intPollEvent inSDLWaitEvent
@@ -335,7 +365,7 @@ setEventState flag enable = do
   where
   state = if enable then sdlEnable else sdlIgnore
 
-getKeyState :: IO [HSDLKey]
+getKeyState :: IO [SDLKey]
 getKeyState =
   alloca $ \p -> do
     ptr <- inSDLGetKeyState p
@@ -343,16 +373,16 @@ getKeyState =
     ret <- peekArray n ptr
     return $ [toEnum a | a <- [0..n-1], (ret!!a)==1]
 
-getModState :: IO [HSDLMod]
+getModState :: IO [SDLMod]
 getModState = do
   ret <- inSDLGetModState
   return $ toFlags ret
 
-setModState :: [HSDLMod] -> IO ()
+setModState :: [SDLMod] -> IO ()
 setModState ms =
   inSDLSetModState $ fromFlags ms
 
-getKeyName :: HSDLKey -> IO String
+getKeyName :: SDLKey -> IO String
 getKeyName k = do
   str <- inSDLGetKeyName $ fromEnum k
   peekCString str
